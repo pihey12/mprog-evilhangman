@@ -22,6 +22,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="nl.mprog.apps.evilhangman.LostActivity"
+            android:label="@string/title_activity_lost"
+            android:parentActivityName="nl.mprog.apps.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="nl.mprog.apps.MainActivity" />
+        </activity>
     </application>
 
 </manifest>
