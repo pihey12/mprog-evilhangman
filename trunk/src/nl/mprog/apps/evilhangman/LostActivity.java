@@ -14,7 +14,7 @@ public class LostActivity extends Activity {
 		setContentView(R.layout.activity_lost);
 		// Show the Up button in the action bar.
 		setupActionBar();
-	}
+	}	
 
 	/**
 	 * Set up the {@link android.app.ActionBar}.
