@@ -9,8 +9,11 @@ import java.util.Map.Entry;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
@@ -20,7 +23,7 @@ import android.widget.TextView;
 
 public class MainActivity extends Activity implements OnClickListener {
 	
-	static final int WORD_LENGTH = 10;
+	static final int WORD_LENGTH = 10;	
 	private List<String> words = Words.AVAILABLE_WORDS;
 	static int POGINGEN = 10;
 	private List<String> CURRENT_WORD = new ArrayList<String>();
@@ -39,10 +42,13 @@ public class MainActivity extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
+		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+		String guesses = sharedPref.getString(SettingsActivity.PREF_GUESSES, "");
+		
+		POGINGEN = Integer.parseInt(guesses);
+		
 		setup();
-		
-		((Button) findViewById(R.id.restart)).setOnClickListener(this);
-		
+				
 		LinearLayout buttonLayout_1 = (LinearLayout) findViewById(R.id.button_layout_1);
 		for (char c = 'a'; c <= 'g'; c++) {
 			buttonLayout_1.addView(createButton(c));
@@ -69,6 +75,21 @@ public class MainActivity extends Activity implements OnClickListener {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
+	}
+	
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    // Handle item selection
+	    switch (item.getItemId()) {
+	        case R.id.restart:
+	            this.restart();
+	            return true;
+	        case R.id.settings:
+	        	Intent intent = new Intent(this, SettingsActivity.class);
+	        	startActivity(intent);
+	        	return true;
+	    }
+	    
+	    return false;
 	}
 	
 	private Button createButton(char c) {
