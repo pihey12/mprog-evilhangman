@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <CheckBoxPreference
+        android:key="pref_evil"
+        android:title="@string/settings_evil"
+        android:summary="@string/settings_evil_desc"
+        android:defaultValue="true" />
+  	<ListPreference
+        android:key="pref_wordlength"
+        android:title="@string/settings_wordlength"
+        android:entries="@array/settings_wordlength_entries"
+        android:entryValues="@array/settings_wordlength_entries"
+        android:defaultValue="@string/settings_wordlength_default" />
+  	<ListPreference
+        android:key="pref_guesses"
+        android:title="@string/settings_guesses"
+        android:entries="@array/settings_guesses_entries"
+        android:entryValues="@array/settings_guesses_entries"
+        android:defaultValue="@string/settings_guesses_default" />
+</PreferenceScreen>
