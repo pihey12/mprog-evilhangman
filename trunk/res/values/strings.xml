@@ -2,10 +2,37 @@
 <resources>
 
     <string name="app_name">EvilHangman</string>
-    <string name="action_settings">Settings</string>
+    <string name="settings">Settings</string>
     <string name="title">Evil Hangman</string>
     <string name="restart">Restart game</string>
     <string name="title_activity_lost">LostActivity</string>
+    <string name="title_activity_settings">Settings</string>
     <string name="youlost">You lost!</string>
-
+    
+   	<string name="settings_evil">Evil Hangman</string>
+   	<string name="settings_evil_desc">Does the PC cheat?</string>
+   	
+   	<string name="settings_wordlength">Word length</string>
+   	<string name="settings_wordlength_default">10</string>
+   	
+   	<string-array name="settings_wordlength_entries">
+    	<item>5</item>
+    	<item>6</item>
+    	<item>7</item>
+    	<item>8</item>
+    	<item>9</item>
+    	<item>10</item>
+	</string-array>
+	
+   	<string name="settings_guesses">Amount of guesses</string>
+   	<string name="settings_guesses_default">10</string>
+   	
+   	<string-array name="settings_guesses_entries">
+    	<item>5</item>
+    	<item>10</item>
+    	<item>15</item>
+    	<item>20</item>
+    	<item>25</item>
+	</string-array>
+   	
 </resources>

@@ -42,11 +42,11 @@
 	        android:layout_centerHorizontal="true"
 	        android:textStyle="bold" />
 	    
-	    <Button android:id="@+id/restart"
+<!-- 	    <Button android:id="@+id/restart"
 	        android:layout_width="wrap_content"
 	        android:layout_height="40dp"
 	         android:layout_below="@id/current_pogingen"
-	        android:text="@string/restart"  />
+	        android:text="@string/restart"  /> -->
 	            
 <!-- 	     <ImageView android:id="@+id/logo" -->
 <!-- 	         android:layout_width="wrap_content" -->
@@ -60,7 +60,7 @@
 	         android:layout_height="173dp"
 	         android:layout_marginTop="0dp"
 	         android:orientation="vertical"
-	         android:layout_below="@id/restart"
+	         android:layout_below="@id/current_pogingen"
 	    	 android:background="@drawable/my_border">
 	         
 	         <LinearLayout android:id="@+id/button_layout_1"
