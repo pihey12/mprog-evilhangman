@@ -1,9 +1,18 @@
 # Design Document
 
+Interface
+* Hangman
+
 Classes
 * EvilHangman
-* Hangman
+* NormalHangman
 * Words
+
+ClickHandlers
+* ButtonClickHandler
+* RestartGameClickHandler
+* SettingsClickHandler
+* SaveSettingsClickHandler
 
 Activities and Views
 * MainActivity
