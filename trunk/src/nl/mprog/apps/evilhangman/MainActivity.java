@@ -43,9 +43,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		setContentView(R.layout.activity_main);
 		
 		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-		String guesses = sharedPref.getString(SettingsActivity.PREF_GUESSES, "");
-		
-		POGINGEN = Integer.parseInt(guesses);
+		POGINGEN = sharedPref.getInt(SettingsActivity.PREF_GUESSES, 5);
 		
 		setup();
 				
@@ -270,9 +268,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		CURRENT_WORD = new ArrayList<String>();
 		WRONG_GUESSED_CHARS = new ArrayList<Character>();
 		CORRECT_GUESSED_CHARS = new ArrayList<Character>();
-		
-		POGINGEN = 10;
-		
+				
 		for (Button button : buttons) {
 			button.setEnabled(true);
 		}
