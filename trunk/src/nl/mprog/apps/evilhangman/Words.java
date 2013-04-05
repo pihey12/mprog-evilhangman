@@ -5,7 +5,7 @@ import java.util.List;
 
 public final class Words {
 	
-	static final List<String> AVAILABLE_WORDS = Arrays.asList(new String[] {"aardwolves",
+	public static final List<String> AVAILABLE_WORDS = Arrays.asList(new String[] {"aardwolves",
 			"abandoning",
 			"abasements",
 			"abashments",
