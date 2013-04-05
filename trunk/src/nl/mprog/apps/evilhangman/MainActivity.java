@@ -143,6 +143,10 @@ public class MainActivity extends Activity {
 	}
 	
 	private void restart() {
+		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+		int guesses = sharedPref.getInt(SettingsActivity.PREF_GUESSES, 5);
+		hangman.setMaxGuesses(guesses);
+		
 		hangman.restart();
 		for (Button button : buttons) {
 			button.setEnabled(true);
