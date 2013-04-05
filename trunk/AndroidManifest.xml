@@ -30,13 +30,21 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="nl.mprog.apps.MainActivity" />
         </activity>
-       	<activity
+        <activity
             android:name="nl.mprog.apps.evilhangman.SettingsActivity"
             android:label="@string/title_activity_settings"
             android:parentActivityName="nl.mprog.apps.evilhangman.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="nl.mprog.apps.MainActivity" />
+        </activity>
+        <activity
+            android:name="nl.mprog.apps.evilhangman.WinActivity"
+            android:label="@string/title_activity_win"
+            android:parentActivityName="nl.mprog.apps.evilhangman.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="nl.mprog.apps.evilhangman.MainActivity" />
         </activity>
     </application>
 
