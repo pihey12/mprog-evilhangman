@@ -6,17 +6,48 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="#750000"
     tools:context=".LostActivity" >
 
-    <TextView android:id="@+id/youlost"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/youlost" />
-	    
-	    <Button android:id="@+id/restart"
+	    <TextView
+	        android:id="@+id/youlost"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_alignParentTop="true"
+	        android:layout_marginLeft="75dp"
+	        android:layout_marginTop="33dp"
+	        android:text="@string/youlost"
+	        android:textColor="#ffffff"
+	        android:textSize="36sp" />
+
+	    <TextView
+	        android:id="@+id/textView1"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentRight="true"
+	        android:layout_below="@+id/youlost"
+	        android:layout_marginTop="38dp"
+	        android:text="The word was: wtfbbqsauce"
+	        android:textColor="#ffffff"
+	        android:textSize="20sp" />
+
+	    <Button
+	        android:id="@+id/restart"
 	        android:layout_width="wrap_content"
 	        android:layout_height="50dp"
-	         android:layout_below="@id/youlost"
-	        android:text="@string/restart"  />
+	        android:layout_alignParentBottom="true"
+	        android:layout_centerHorizontal="true"
+	        android:background="#ffffff"
+	        android:text="@string/play_again" />
+
+	    <ImageView
+	        android:id="@+id/imageView1"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_above="@+id/restart"
+	        android:layout_centerHorizontal="true"
+	        android:layout_marginBottom="16dp"
+	        android:src="@drawable/sadface" />
 
 </RelativeLayout>
