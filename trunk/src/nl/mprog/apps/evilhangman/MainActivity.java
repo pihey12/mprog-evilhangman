@@ -3,6 +3,7 @@ package nl.mprog.apps.evilhangman;
 import java.util.ArrayList;
 import java.util.List;
 
+import nl.mprog.apps.evilhangman.clickhandlers.LettersClickHandler;
 import nl.mprog.apps.evilhangman.hangman.EvilHangman;
 import nl.mprog.apps.evilhangman.hangman.Hangman;
 import android.app.Activity;
@@ -19,7 +20,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class MainActivity extends Activity implements OnClickListener {
+public class MainActivity extends Activity {
 	
 	private TextView currentWord;
 	private TextView currentPogingen;
@@ -27,6 +28,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	private Hangman hangman;
 	
 	private List<Button> buttons = new ArrayList<Button>();
+	private LettersClickHandler lettersClickHandler;
 
 	private static final int BUTTON_WIDTH = 59;
 	private static final int BUTTON_HEIGHT = 59;
@@ -94,41 +96,22 @@ public class MainActivity extends Activity implements OnClickListener {
 		Button button = new Button(this);
 		button.setLayoutParams(new LayoutParams(BUTTON_WIDTH, BUTTON_HEIGHT));
 		button.setText(text.toUpperCase());
-		button.setOnClickListener(this);
+		button.setOnClickListener(lettersClickHandler);
 		
 		buttons.add(button);
 		
 		return button;
 	}
-
-	@Override
-	public void onClick(View v) {
-		Button button = (Button) v;
-		button.getText();
-		
-		if (button.getText().equals("Restart game")) {
-			restart();
-		} else {
-			button.setEnabled(false);
-			char letter = button.getText().toString().toLowerCase().charAt(0);
-			hangman.addLetter(letter);
-			
-			setWord(hangman.getCurrentWord());
-			currentPogingen.setText("Je hebt nog "+ hangman.getGuesses() +" pogingen over");
-			
-			if (hangman.gameOver()) {
-				gameOver(hangman.getWord());
-			} else if (hangman.gameWon()) {
-				finished(hangman.getWord());
-			}
-		}
+	
+	public Hangman getHangman() {
+		return hangman;
 	}
 	
 	public void setWord(String word) {
 		currentWord.setText(word);
 	}
 	
-	private void finished(String word) {
+	public void gameWon(String word) {
 		currentPogingen.setText("YOU WIN! The word was: "+ word);
 		
 		for (Button button : buttons) {
@@ -136,7 +119,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		}
 	}
 	
-	private void gameOver(String word) {
+	public void gameOver(String word) {
 		currentPogingen.setText("YOU LOST! The word was: "+ word);
 		
 		for (Button button : buttons) {
@@ -146,12 +129,17 @@ public class MainActivity extends Activity implements OnClickListener {
 //		startActivity(intent);
 	}
 	
+	public void updateGuesses(int guesses) {
+		currentPogingen.setText("Je hebt nog "+ guesses +" pogingen over");
+	}
+	
 	private void setUp() {
 		currentWord = (TextView) findViewById(R.id.current_word);
 		currentPogingen = (TextView) findViewById(R.id.current_pogingen);
 		currentPogingen.setText("Je hebt nog "+ hangman.getGuesses() +" pogingen over");
 		
 		currentWord.setText(hangman.getCurrentWord());
+		lettersClickHandler = new LettersClickHandler(this);
 	}
 	
 	private void restart() {
