@@ -1,19 +1,14 @@
 package nl.mprog.apps.evilhangman;
 
-import java.io.BufferedInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStream;
-
+import nl.mprog.apps.evilhangman.persistence.Highscore;
+import nl.mprog.apps.evilhangman.persistence.HighscoresHandler;
 import android.app.Activity;
-import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class HighscoresActivity extends Activity {
@@ -27,8 +22,14 @@ public class HighscoresActivity extends Activity {
 		// Show the Up button in the action bar.
 		setupActionBar();
 		
-		TextView textView = (TextView) findViewById(R.id.highscore);
-		textView.setText("Current high score is:");
+		LinearLayout layout = (LinearLayout) findViewById(R.id.highscores);
+
+		HighscoresHandler handler = new HighscoresHandler(this);
+		for (Highscore highscore : handler.getAllHighscores()) {
+			TextView textView = new TextView(this);
+			textView.setText(highscore.getWord() +" "+ highscore.getGuesses());
+			layout.addView(textView);
+		}
 	}
 
 	/**
