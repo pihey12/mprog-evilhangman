@@ -40,6 +40,7 @@
 	        android:layout_centerHorizontal="true"
 	        android:layout_marginTop="40dp"
 	        android:background="#ffffff"
+	        android:onClick="viewHighscores"
 	        android:text="View highscores" />
 
 	    <ImageView

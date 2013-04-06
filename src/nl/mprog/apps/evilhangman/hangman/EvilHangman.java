@@ -1,6 +1,7 @@
 package nl.mprog.apps.evilhangman.hangman;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -61,6 +62,10 @@ public class EvilHangman implements Hangman {
 	public int getGuesses() {
 		return guesses;
 	}
+	
+	public int getGuessesUsed() {
+		return wrongGuessedChars.size();
+	}
 
 	public void setMaxGuesses(int maxGuesses) {
 		this.maxGuesses = maxGuesses;
@@ -112,7 +117,7 @@ public class EvilHangman implements Hangman {
 			for (int i = 0; i < currentWord.size(); i++) {
 				String s = currentWord.get(i);
 				char c = s.toLowerCase().charAt(0);
-				if (c != '_') {
+				if (c != DEFAULT_LETTER.charAt(0)) {
 					iterator = list.iterator();
 					while (iterator.hasNext()) {
 						String word = iterator.next();

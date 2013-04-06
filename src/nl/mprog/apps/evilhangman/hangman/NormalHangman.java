@@ -114,4 +114,8 @@ public class NormalHangman implements Hangman {
 		currentWord = list;
 	}
 
+	public int getGuessesUsed() {
+		return wrongGuessedChars.size();
+	}
+
 }

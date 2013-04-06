@@ -1,42 +1,49 @@
 package nl.mprog.apps.evilhangman;
 
-import android.os.Bundle;
+import java.io.BufferedInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+
 import android.app.Activity;
-import android.content.Intent;
+import android.content.Context;
+import android.os.Build;
+import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
-import android.support.v4.app.NavUtils;
 
-public class WinActivity extends Activity {
+public class HighscoresActivity extends Activity {
+	
+	public static final String HIGHSCORE = "highscore";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_win);
+		setContentView(R.layout.activity_highscores);
 		// Show the Up button in the action bar.
 		setupActionBar();
 		
-		TextView textView = (TextView) findViewById(R.id.textView1);
-		Intent intent = getIntent();
-		String word = intent.getStringExtra("word");
-		textView.setText("The word was: "+ word);
+		TextView textView = (TextView) findViewById(R.id.highscore);
+		textView.setText("Current high score is:");
 	}
 
 	/**
 	 * Set up the {@link android.app.ActionBar}.
 	 */
 	private void setupActionBar() {
-
-		getActionBar().setDisplayHomeAsUpEnabled(true);
-
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+			getActionBar().setDisplayHomeAsUpEnabled(true);
+		}
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.win, menu);
+		getMenuInflater().inflate(R.menu.highscores, menu);
 		return true;
 	}
 
@@ -55,15 +62,6 @@ public class WinActivity extends Activity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
-	}
-
-	public void restartGame(View view) {
-		finish();
-	}
-	
-	public void viewHighscores(View view) {
-		Intent intent = new Intent(this, HighscoresActivity.class);
-		startActivity(intent);
 	}
 
 }
