@@ -44,7 +44,7 @@ public class HighscoresHandler extends SQLiteOpenHelper {
 		db.close();
 	}
 	
-	public List<Highscore> getAllHighscores() {
+	public List<Highscore> getHighscores() {
 		List<Highscore> list = new ArrayList<Highscore>();
 		
 		String query = "SELECT * FROM "+ NAME +" ORDER BY guesses ASC LIMIT 10";

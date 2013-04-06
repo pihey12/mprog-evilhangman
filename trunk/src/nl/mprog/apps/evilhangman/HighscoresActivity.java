@@ -25,7 +25,7 @@ public class HighscoresActivity extends Activity {
 		LinearLayout layout = (LinearLayout) findViewById(R.id.highscores);
 
 		HighscoresHandler handler = new HighscoresHandler(this);
-		for (Highscore highscore : handler.getAllHighscores()) {
+		for (Highscore highscore : handler.getHighscores()) {
 			TextView textView = new TextView(this);
 			textView.setText(highscore.getWord() +" "+ highscore.getGuesses());
 			layout.addView(textView);
