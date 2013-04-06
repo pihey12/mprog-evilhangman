@@ -44,17 +44,9 @@ public class MainActivity extends Activity {
 		boolean evil = sharedPref.getBoolean(SettingsActivity.PREF_EVIL, true);
 		
 		hangman = evil ? new EvilHangman() : new NormalHangman();
-		if(evil){
-			hangman = new EvilHangman();
-			hangman.setMaxGuesses(guesses);
-			hangman.setWordLength(10);
-			hangman.setUp();
-		} else {
-			hangman = new NormalHangman();
-			hangman.setMaxGuesses(guesses);
-			hangman.setWordLength(10);
-			hangman.setUp();
-		}
+		hangman.setMaxGuesses(guesses);
+		hangman.setWordLength(10);
+		hangman.setUp();
 		
 		setUp();
 				
@@ -162,6 +154,7 @@ public class MainActivity extends Activity {
 	}
 	
 	private void restart() {
+		System.out.println("\n\nRESTARTING\n\n");
 		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
 		boolean evil = sharedPref.getBoolean(SettingsActivity.PREF_EVIL, true);
 		int guesses = sharedPref.getInt(SettingsActivity.PREF_GUESSES, 5);
@@ -170,7 +163,9 @@ public class MainActivity extends Activity {
 		hangman.setMaxGuesses(guesses);
 		hangman.setWordLength(10);
 		hangman.restart();
+		lettersClickHandler.setHangman(hangman);
 		for (Button button : buttons) {
+			button.setOnClickListener(lettersClickHandler);
 			button.setEnabled(true);
 		}
 		
