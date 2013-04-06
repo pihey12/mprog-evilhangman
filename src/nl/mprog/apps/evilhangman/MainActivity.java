@@ -112,21 +112,27 @@ public class MainActivity extends Activity {
 	}
 	
 	public void gameWon(String word) {
-		currentPogingen.setText("YOU WIN! The word was: "+ word);
-		
-		for (Button button : buttons) {
-			button.setEnabled(false);
-		}
+//		currentPogingen.setText("YOU WIN! The word was: "+ word);
+//		
+//		for (Button button : buttons) {
+//			button.setEnabled(false);
+//		}
+		Intent intent = new Intent(this, WinActivity.class);
+		intent.putExtra("word", word);
+		startActivity(intent);
+		restart();
 	}
 	
 	public void gameOver(String word) {
-		currentPogingen.setText("YOU LOST! The word was: "+ word);
+//		currentPogingen.setText("YOU LOST! The word was: "+ word);
 		
-		for (Button button : buttons) {
-			button.setEnabled(false);
-		}
-//		Intent intent = new Intent(this, LostActivity.class);
-//		startActivity(intent);
+//		for (Button button : buttons) {
+//			button.setEnabled(false);
+//		}
+		Intent intent = new Intent(this, LostActivity.class);
+		intent.putExtra("word", word);
+		startActivity(intent);
+		restart();
 	}
 	
 	public void updateGuesses(int guesses) {

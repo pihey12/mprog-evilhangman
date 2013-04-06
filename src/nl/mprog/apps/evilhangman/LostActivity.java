@@ -1,10 +1,15 @@
 package nl.mprog.apps.evilhangman;
 
-import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
+import android.os.Build;
+import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.support.v4.app.NavUtils;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.TextView;
 
 public class LostActivity extends Activity {
 
@@ -14,15 +19,20 @@ public class LostActivity extends Activity {
 		setContentView(R.layout.activity_lost);
 		// Show the Up button in the action bar.
 		setupActionBar();
+		
+		TextView textView = (TextView) findViewById(R.id.textView1);
+		Intent intent = getIntent();
+		String word = intent.getStringExtra("word");
+		textView.setText("The word was: "+ word);
 	}	
 
 	/**
 	 * Set up the {@link android.app.ActionBar}.
 	 */
 	private void setupActionBar() {
-
-		getActionBar().setDisplayHomeAsUpEnabled(true);
-
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+			getActionBar().setDisplayHomeAsUpEnabled(true);
+		}
 	}
 
 	@Override
@@ -47,6 +57,10 @@ public class LostActivity extends Activity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	public void restartGame(View view) {
+		finish();
 	}
 
 }

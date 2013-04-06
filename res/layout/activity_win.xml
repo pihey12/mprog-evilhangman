@@ -10,18 +10,6 @@
     tools:context=".WinActivity" >
 
 	    <TextView
-	        android:id="@+id/textView1"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_alignParentRight="true"
-	        android:layout_below="@+id/youwon"
-	        android:layout_marginRight="16dp"
-	        android:layout_marginTop="18dp"
-	        android:text="The word was: wtfbbqsauce"
-	        android:textColor="#ffffff"
-	        android:textSize="20sp" />
-
-	    <TextView
 	        android:id="@+id/youwon"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
@@ -31,6 +19,18 @@
 	        android:text="@string/youwin"
 	        android:textColor="#ffffff"
 	        android:textSize="36sp" />
+
+	    <TextView
+	        android:id="@+id/textView1"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentRight="true"
+	        android:layout_below="@+id/youwon"
+	        android:layout_marginRight="16dp"
+	        android:layout_marginTop="18dp"
+	        android:textAlignment="center"
+	        android:textColor="#ffffff"
+	        android:textSize="20sp" />
 
 	    <Button
 	        android:id="@+id/button1"
@@ -59,6 +59,7 @@
 	        android:layout_centerHorizontal="true"
 	        android:layout_marginTop="14dp"
 	        android:background="#ffffff"
-	        android:text="@string/play_again" />
+	        android:text="@string/play_again"
+	        android:onClick="restartGame" />
 
 </RelativeLayout>
