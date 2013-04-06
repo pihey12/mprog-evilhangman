@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -63,6 +64,10 @@ public class HighscoresActivity extends Activity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	
+	public void playAgain(View view) {
+		finish();
 	}
 
 }
