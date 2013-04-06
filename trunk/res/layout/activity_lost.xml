@@ -25,11 +25,10 @@
 	        android:id="@+id/textView1"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:layout_alignParentRight="true"
 	        android:layout_below="@+id/youlost"
 	        android:layout_marginTop="38dp"
-	        android:text="The word was: wtfbbqsauce"
 	        android:textColor="#ffffff"
+	        android:textAlignment="center"
 	        android:textSize="20sp" />
 
 	    <Button
@@ -39,7 +38,9 @@
 	        android:layout_alignParentBottom="true"
 	        android:layout_centerHorizontal="true"
 	        android:background="#ffffff"
-	        android:text="@string/play_again" />
+	        android:text="@string/play_again"
+	        android:textAlignment="center"
+	        android:onClick="restartGame" />
 
 	    <ImageView
 	        android:id="@+id/imageView1"

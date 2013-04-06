@@ -2,8 +2,11 @@ package nl.mprog.apps.evilhangman;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.support.v4.app.NavUtils;
 
 public class WinActivity extends Activity {
@@ -14,6 +17,11 @@ public class WinActivity extends Activity {
 		setContentView(R.layout.activity_win);
 		// Show the Up button in the action bar.
 		setupActionBar();
+		
+		TextView textView = (TextView) findViewById(R.id.textView1);
+		Intent intent = getIntent();
+		String word = intent.getStringExtra("word");
+		textView.setText("The word was: "+ word);
 	}
 
 	/**
@@ -47,6 +55,10 @@ public class WinActivity extends Activity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	public void restartGame(View view) {
+		finish();
 	}
 
 }
