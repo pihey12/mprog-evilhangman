@@ -25,7 +25,7 @@ public class EvilHangman implements Hangman {
 		List<String> availableWords = getAvailableWords();
 		Map<String, Integer> wordsWithTheLetter = findWordsWithTheLetter(letter, availableWords);
 		
-		holdingWord = getWordWithLowestCount(wordsWithTheLetter);
+		holdingWord = getAvailableWords().get(0);
 		if (wordsWithTheLetter.size() == availableWords.size()) {
 			correctGuessedChars.add(letter);
 			updateCurrentWord();
