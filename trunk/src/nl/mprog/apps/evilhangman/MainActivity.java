@@ -7,6 +7,8 @@ import nl.mprog.apps.evilhangman.clickhandlers.LettersClickHandler;
 import nl.mprog.apps.evilhangman.hangman.EvilHangman;
 import nl.mprog.apps.evilhangman.hangman.Hangman;
 import nl.mprog.apps.evilhangman.hangman.NormalHangman;
+import nl.mprog.apps.evilhangman.persistence.Highscore;
+import nl.mprog.apps.evilhangman.persistence.HighscoresHandler;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,8 +16,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -127,6 +127,9 @@ public class MainActivity extends Activity {
 //		for (Button button : buttons) {
 //			button.setEnabled(false);
 //		}
+		HighscoresHandler handler = new HighscoresHandler(this);
+		handler.addHighscore(new Highscore(word, guesses));
+		
 		Intent intent = new Intent(this, WinActivity.class);
 		intent.putExtra("word", word);
 		startActivity(intent);
