@@ -6,6 +6,7 @@ import java.util.List;
 import nl.mprog.apps.evilhangman.clickhandlers.LettersClickHandler;
 import nl.mprog.apps.evilhangman.hangman.EvilHangman;
 import nl.mprog.apps.evilhangman.hangman.Hangman;
+import nl.mprog.apps.evilhangman.hangman.NormalHangman;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -40,11 +41,19 @@ public class MainActivity extends Activity {
 		
 		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
 		int guesses = sharedPref.getInt(SettingsActivity.PREF_GUESSES, 5);
+		boolean evil = sharedPref.getBoolean(SettingsActivity.PREF_EVIL, true);
 		
-		hangman = new EvilHangman();
-		hangman.setMaxGuesses(guesses);
-		hangman.setWordLength(10);
-		hangman.setUp();
+		if(evil){
+			hangman = new EvilHangman();
+			hangman.setMaxGuesses(guesses);
+			hangman.setWordLength(10);
+			hangman.setUp();
+		} else {
+			hangman = new NormalHangman();
+			hangman.setMaxGuesses(guesses);
+			hangman.setWordLength(10);
+			hangman.setUp();
+		}
 		
 		setUp();
 				
