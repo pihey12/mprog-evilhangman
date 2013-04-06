@@ -35,7 +35,11 @@ public class EvilHangman implements Hangman {
 	}
 	
 	public String getWord() {
-		return holdingWord;
+		if (!holdingWord.isEmpty()) {
+			return holdingWord;
+		} else {
+			return getCurrentWord();
+		}
 	}
 	
 	public String getCurrentWord() {
