@@ -46,6 +46,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="nl.mprog.apps.evilhangman.MainActivity" />
         </activity>
+        <activity
+            android:name="nl.mprog.apps.evilhangman.HighscoresActivity"
+            android:label="@string/title_activity_highscores"
+            android:parentActivityName="nl.mprog.apps.evilhangman.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="nl.mprog.apps.evilhangman.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

@@ -43,6 +43,7 @@ public class MainActivity extends Activity {
 		int guesses = sharedPref.getInt(SettingsActivity.PREF_GUESSES, 5);
 		boolean evil = sharedPref.getBoolean(SettingsActivity.PREF_EVIL, true);
 		
+		hangman = evil ? new EvilHangman() : new NormalHangman();
 		if(evil){
 			hangman = new EvilHangman();
 			hangman.setMaxGuesses(guesses);
@@ -120,7 +121,7 @@ public class MainActivity extends Activity {
 		currentWord.setText(word);
 	}
 	
-	public void gameWon(String word) {
+	public void gameWon(String word, int guesses) {
 //		currentPogingen.setText("YOU WIN! The word was: "+ word);
 //		
 //		for (Button button : buttons) {

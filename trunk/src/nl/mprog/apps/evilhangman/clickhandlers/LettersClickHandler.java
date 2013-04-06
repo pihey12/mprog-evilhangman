@@ -34,7 +34,7 @@ public class LettersClickHandler implements OnClickListener {
 		if (hangman.gameOver()) {
 			activity.gameOver(hangman.getWord());
 		} else if (hangman.gameWon()) {
-			activity.gameWon(hangman.getWord());
+			activity.gameWon(hangman.getWord(), hangman.getGuesses());
 		}
 	}
 

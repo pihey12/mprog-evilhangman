@@ -10,6 +10,7 @@ public interface Hangman {
 	public int getWordLength();
 	public void setWordLength(int length);
 	public int getGuesses();
+	public int getGuessesUsed();
 	public void setMaxGuesses(int maxGuesses);
 	public boolean gameOver();
 	public boolean gameWon();
