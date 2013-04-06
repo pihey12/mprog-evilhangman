@@ -163,7 +163,10 @@ public class MainActivity extends Activity {
 	
 	private void restart() {
 		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+		boolean evil = sharedPref.getBoolean(SettingsActivity.PREF_EVIL, true);
 		int guesses = sharedPref.getInt(SettingsActivity.PREF_GUESSES, 5);
+		
+		hangman = evil ? new EvilHangman() : new NormalHangman();
 		hangman.setMaxGuesses(guesses);
 		hangman.setWordLength(10);
 		hangman.restart();
