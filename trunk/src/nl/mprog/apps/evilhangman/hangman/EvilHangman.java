@@ -177,16 +177,5 @@ public class EvilHangman implements Hangman {
 		}
 		return false;
 	}
-	
-	private String getWordWithLowestCount(Map<String, Integer> map) {
-		String res = "";
-		int count = wordLength;
-		for (Entry<String, Integer> entry : map.entrySet()) {
-			if (entry.getValue() < count) {
-				res = entry.getKey();
-			}
-		}
-		return res;
-	}
 
 }
