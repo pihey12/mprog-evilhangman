@@ -64,6 +64,7 @@ public class WinActivity extends Activity {
 	public void viewHighscores(View view) {
 		Intent intent = new Intent(this, HighscoresActivity.class);
 		startActivity(intent);
+		finish();
 	}
 
 }
