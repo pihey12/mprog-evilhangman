@@ -46,13 +46,17 @@ public class MainActivity extends Activity {
 		int length = sharedPref.getInt(SettingsActivity.PREF_LENGTH, 10);
 		boolean evil = sharedPref.getBoolean(SettingsActivity.PREF_EVIL, true);
 		
+		WordsAssetsHelper wordsAssetsHelper = new WordsAssetsHelper(this);
+		
+		List<String> words = wordsAssetsHelper.wordsByLength(length);
+		
 		currentWord = (TextView) findViewById(R.id.current_word);
 		updateCurrentWordTextSize(length);
 
 		hangman = evil ? new EvilHangman() : new NormalHangman();
 		hangman.setMaxGuesses(guesses);
 		hangman.setWordLength(length);
-		hangman.setContext(this);
+		hangman.setWords(words);
 		hangman.setUp();
 		
 		setUp();
@@ -165,12 +169,16 @@ public class MainActivity extends Activity {
 		int length = sharedPref.getInt(SettingsActivity.PREF_LENGTH, 10);
 		int guesses = sharedPref.getInt(SettingsActivity.PREF_GUESSES, 5);
 		
+		WordsAssetsHelper wordsAssetsHelper = new WordsAssetsHelper(this);
+		
+		List<String> words = wordsAssetsHelper.wordsByLength(length);
+		
 		updateCurrentWordTextSize(length);
 		
 		hangman = evil ? new EvilHangman() : new NormalHangman();
 		hangman.setMaxGuesses(guesses);
 		hangman.setWordLength(length);
-		hangman.setContext(this);
+		hangman.setWords(words);
 		hangman.restart();
 		
 		lettersClickHandler.setHangman(hangman);

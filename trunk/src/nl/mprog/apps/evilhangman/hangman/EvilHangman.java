@@ -10,7 +10,6 @@ import java.util.Map.Entry;
 
 import android.content.Context;
 
-import nl.mprog.apps.evilhangman.Words;
 import nl.mprog.apps.evilhangman.persistence.WordsAssetsHelper;
 
 public class EvilHangman implements Hangman {
@@ -39,8 +38,8 @@ public class EvilHangman implements Hangman {
 		}
 	}
 	
-	public void setContext(Context context){
-		this.context = context;
+	public void setWords(List<String> words){
+		this.words = words;
 	}
 	
 	public String getWord() {
@@ -95,9 +94,6 @@ public class EvilHangman implements Hangman {
 	}
 	
 	public void setUp() {
-		WordsAssetsHelper words = new WordsAssetsHelper(this.context);
-		this.words = words.wordsByLength(this.wordLength);
-		
 		currentWord = new ArrayList<String>();
 		guesses = maxGuesses;
 		for (int i = 0; i < wordLength; i++) {
