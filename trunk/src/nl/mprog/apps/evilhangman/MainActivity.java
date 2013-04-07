@@ -158,8 +158,6 @@ public class MainActivity extends Activity {
 	}
 	
 	private void restart() {
-		
-		System.out.println("\n\nRESTARTING\n\n");
 		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
 		boolean evil = sharedPref.getBoolean(SettingsActivity.PREF_EVIL, true);
 		int length = sharedPref.getInt(SettingsActivity.PREF_LENGTH, 10);
