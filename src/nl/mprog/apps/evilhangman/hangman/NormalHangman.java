@@ -100,7 +100,7 @@ public class NormalHangman implements Hangman {
 		correctGuessedChars = new ArrayList<Character>();
 		
 		Random random = new Random();
-		this.holdingWord = this.words.get(random.nextInt(this.words.size())).toLowerCase();
+		this.holdingWord = this.words.get(random.nextInt(this.words.size()));
 	}
 
 	@Override

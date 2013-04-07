@@ -11,12 +11,13 @@ import java.util.Map.Entry;
 import android.content.Context;
 
 import nl.mprog.apps.evilhangman.Words;
+import nl.mprog.apps.evilhangman.persistence.WordsAssetsHelper;
 
 public class EvilHangman implements Hangman {
 	
 	private int wordLength;
 	private String holdingWord;
-	private List<String> words = Words.AVAILABLE_WORDS;
+	private List<String> words;
 	private int guesses;
 	private int maxGuesses;
 	private List<String> currentWord;
@@ -94,6 +95,9 @@ public class EvilHangman implements Hangman {
 	}
 	
 	public void setUp() {
+		WordsAssetsHelper words = new WordsAssetsHelper(this.context);
+		this.words = words.wordsByLength(this.wordLength);
+		
 		currentWord = new ArrayList<String>();
 		guesses = maxGuesses;
 		for (int i = 0; i < wordLength; i++) {
