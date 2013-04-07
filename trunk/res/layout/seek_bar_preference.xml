@@ -26,20 +26,23 @@
 	        android:layout_height="wrap_content"
 	        android:layout_below="@android:id/title"
 	></TextView>
-
-	<TextView android:id="@+id/seekBarPrefUnitsRight"
-	        android:layout_alignParentRight="true"
-	        android:layout_below="@android:id/title"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	></TextView>
 	
 	<TextView android:id="@+id/seekBarPrefValue"
+	        android:layout_below="@android:id/title"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:layout_toLeftOf="@id/seekBarPrefUnitsRight"
+	        android:layout_marginTop="35dp"
+	        android:gravity="left"
+	></TextView>
+
+	<TextView android:id="@+id/seekBarPrefUnitsRight"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="35dp"
+	        android:layout_marginLeft="25dp"
+	        android:layout_toRightOf="@id/seekBarPrefValue"
+	        android:gravity="left"
 	        android:layout_below="@android:id/title"
-	        android:gravity="right"
 	></TextView>
 
 	<TextView android:id="@+id/seekBarPrefUnitsLeft"
@@ -52,6 +55,7 @@
 	<LinearLayout android:id="@+id/seekBarPrefBarContainer"
 			android:layout_alignParentLeft="true"
 	        android:layout_alignParentBottom="true"
+	        android:layout_marginTop="35dp"
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
 	        android:layout_below="@android:id/summary">
