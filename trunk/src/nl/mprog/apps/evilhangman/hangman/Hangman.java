@@ -1,5 +1,7 @@
 package nl.mprog.apps.evilhangman.hangman;
 
+import android.content.Context;
+
 public interface Hangman {
 	
 	static String DEFAULT_LETTER = "_";
@@ -16,5 +18,6 @@ public interface Hangman {
 	public boolean gameWon();
 	public void setUp();
 	public void restart();
+	public void setContext(Context context);
 
 }

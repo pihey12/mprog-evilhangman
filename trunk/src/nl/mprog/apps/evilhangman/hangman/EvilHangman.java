@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import android.content.Context;
+
 import nl.mprog.apps.evilhangman.Words;
 
 public class EvilHangman implements Hangman {
@@ -20,6 +22,7 @@ public class EvilHangman implements Hangman {
 	private List<String> currentWord;
 	private List<Character> wrongGuessedChars;
 	private List<Character> correctGuessedChars;
+	private Context context;
 	
 	public void addLetter(char letter) {
 		List<String> availableWords = getAvailableWords();
@@ -33,6 +36,10 @@ public class EvilHangman implements Hangman {
 			guesses--;
 			wrongGuessedChars.add(letter);
 		}
+	}
+	
+	public void setContext(Context context){
+		this.context = context;
 	}
 	
 	public String getWord() {

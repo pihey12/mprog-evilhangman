@@ -9,9 +9,11 @@ import nl.mprog.apps.evilhangman.hangman.Hangman;
 import nl.mprog.apps.evilhangman.hangman.NormalHangman;
 import nl.mprog.apps.evilhangman.persistence.Highscore;
 import nl.mprog.apps.evilhangman.persistence.HighscoresHandler;
+import nl.mprog.apps.evilhangman.persistence.WordsAssetsHelper;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.Menu;
@@ -40,12 +42,14 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		
 		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-		int guesses = sharedPref.getInt(SettingsActivity.PREF_GUESSES, 5);
+		int guesses = sharedPref.getInt(SettingsActivity.PREF_GUESSES, 10);
+		int length = sharedPref.getInt(SettingsActivity.PREF_LENGTH, 10);
 		boolean evil = sharedPref.getBoolean(SettingsActivity.PREF_EVIL, true);
-		
+
 		hangman = evil ? new EvilHangman() : new NormalHangman();
 		hangman.setMaxGuesses(guesses);
-		hangman.setWordLength(10);
+		hangman.setWordLength(length);
+		hangman.setContext(this);
 		hangman.setUp();
 		
 		setUp();
@@ -154,15 +158,19 @@ public class MainActivity extends Activity {
 	}
 	
 	private void restart() {
+		
 		System.out.println("\n\nRESTARTING\n\n");
 		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
 		boolean evil = sharedPref.getBoolean(SettingsActivity.PREF_EVIL, true);
+		int length = sharedPref.getInt(SettingsActivity.PREF_LENGTH, 10);
 		int guesses = sharedPref.getInt(SettingsActivity.PREF_GUESSES, 5);
 		
 		hangman = evil ? new EvilHangman() : new NormalHangman();
 		hangman.setMaxGuesses(guesses);
-		hangman.setWordLength(10);
+		hangman.setWordLength(length);
+		hangman.setContext(this);
 		hangman.restart();
+		
 		lettersClickHandler.setHangman(hangman);
 		for (Button button : buttons) {
 			button.setOnClickListener(lettersClickHandler);
