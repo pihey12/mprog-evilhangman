@@ -45,6 +45,9 @@ public class MainActivity extends Activity {
 		int guesses = sharedPref.getInt(SettingsActivity.PREF_GUESSES, 10);
 		int length = sharedPref.getInt(SettingsActivity.PREF_LENGTH, 10);
 		boolean evil = sharedPref.getBoolean(SettingsActivity.PREF_EVIL, true);
+		
+		currentWord = (TextView) findViewById(R.id.current_word);
+		updateCurrentWordTextSize(length);
 
 		hangman = evil ? new EvilHangman() : new NormalHangman();
 		hangman.setMaxGuesses(guesses);
@@ -149,7 +152,6 @@ public class MainActivity extends Activity {
 	}
 	
 	private void setUp() {
-		currentWord = (TextView) findViewById(R.id.current_word);
 		currentPogingen = (TextView) findViewById(R.id.current_pogingen);
 		currentPogingen.setText("Je hebt nog "+ hangman.getGuesses() +" pogingen over");
 		
@@ -162,6 +164,8 @@ public class MainActivity extends Activity {
 		boolean evil = sharedPref.getBoolean(SettingsActivity.PREF_EVIL, true);
 		int length = sharedPref.getInt(SettingsActivity.PREF_LENGTH, 10);
 		int guesses = sharedPref.getInt(SettingsActivity.PREF_GUESSES, 5);
+		
+		updateCurrentWordTextSize(length);
 		
 		hangman = evil ? new EvilHangman() : new NormalHangman();
 		hangman.setMaxGuesses(guesses);
@@ -176,6 +180,18 @@ public class MainActivity extends Activity {
 		}
 		
 		setUp();
+	}
+	
+	private void updateCurrentWordTextSize(int wordLength) {
+		if (wordLength < 10) {
+			currentWord.setTextSize(36);
+		} else if (wordLength < 15) {
+			currentWord.setTextSize(24);
+		} else if (wordLength < 20) {
+			currentWord.setTextSize(20);
+		} else {
+			currentWord.setTextSize(16);
+		}
 	}
 
 }
