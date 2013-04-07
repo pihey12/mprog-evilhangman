@@ -112,8 +112,7 @@ public class EvilHangman implements Hangman {
 	}
 
 	private List<String> getAvailableWords() {
-		List<String> list = new ArrayList<String>(words);
-		Iterator<String> iterator = list.iterator();
+		Iterator<String> iterator = words.iterator();
 		while (iterator.hasNext()) {
 			String word = iterator.next();
 			for (char c : wrongGuessedChars) {
@@ -129,7 +128,7 @@ public class EvilHangman implements Hangman {
 				String s = currentWord.get(i);
 				char c = s.toLowerCase().charAt(0);
 				if (c != DEFAULT_LETTER.charAt(0)) {
-					iterator = list.iterator();
+					iterator = words.iterator();
 					while (iterator.hasNext()) {
 						String word = iterator.next();
 						if (word.charAt(i) != c) {
@@ -142,7 +141,7 @@ public class EvilHangman implements Hangman {
 		}
 		
 		
-		return list;
+		return words;
 	}
 	
 	private Map<String, Integer> findWordsWithTheLetter(char letter, List<String> words) {
