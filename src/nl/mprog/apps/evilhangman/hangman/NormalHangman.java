@@ -1,22 +1,23 @@
 package nl.mprog.apps.evilhangman.hangman;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-import nl.mprog.apps.evilhangman.Words;
+import nl.mprog.apps.evilhangman.persistence.WordsAssetsHelper;
+import android.content.Context;
 
 public class NormalHangman implements Hangman {
 
 	private int wordLength;
 	private String holdingWord;
-	private List<String> words = Words.AVAILABLE_WORDS;
+	private List<String> words;
 	private int guesses;
 	private int maxGuesses;
 	private List<String> currentWord;
 	private List<Character> wrongGuessedChars;
 	private List<Character> correctGuessedChars;
+	private Context context;
 	
 	@Override
 	public void addLetter(char letter) {
@@ -58,6 +59,10 @@ public class NormalHangman implements Hangman {
 	public int getGuesses() {
 		return guesses;
 	}
+	
+	public void setContext(Context context){
+		this.context = context;
+	}
 
 	public void setMaxGuesses(int maxGuesses) {
 		this.maxGuesses = maxGuesses;
@@ -80,6 +85,10 @@ public class NormalHangman implements Hangman {
 
 	@Override
 	public void setUp() {
+		
+		WordsAssetsHelper words = new WordsAssetsHelper(this.context);
+		this.words = words.wordsByLength(this.wordLength);
+
 		currentWord = new ArrayList<String>();
 		guesses = maxGuesses;
 		
@@ -91,7 +100,7 @@ public class NormalHangman implements Hangman {
 		correctGuessedChars = new ArrayList<Character>();
 		
 		Random random = new Random();
-		this.holdingWord = this.words.get(random.nextInt(this.words.size()));
+		this.holdingWord = this.words.get(random.nextInt(this.words.size())).toLowerCase();
 	}
 
 	@Override
