@@ -27,7 +27,7 @@ public class WordsAssetsHelper extends SQLiteAssetHelper {
 				
 		if (cursor.moveToFirst()) {
 			do {
-				list.add(cursor.getString(1));
+				list.add(cursor.getString(1).toLowerCase());
 			} while (cursor.moveToNext());
 		}
 				
