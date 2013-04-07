@@ -47,6 +47,9 @@ public class NormalHangman implements Hangman {
 		return res;
 	}
 
+	public void setWords(List<String> words){
+		this.words = words;
+	}
 
 	public int getWordLength() {
 		return wordLength;
@@ -85,9 +88,6 @@ public class NormalHangman implements Hangman {
 
 	@Override
 	public void setUp() {
-		
-		WordsAssetsHelper words = new WordsAssetsHelper(this.context);
-		this.words = words.wordsByLength(this.wordLength);
 
 		currentWord = new ArrayList<String>();
 		guesses = maxGuesses;
