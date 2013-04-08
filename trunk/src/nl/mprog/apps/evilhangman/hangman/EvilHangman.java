@@ -1,16 +1,8 @@
 package nl.mprog.apps.evilhangman.hangman;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-
-import android.content.Context;
-
-import nl.mprog.apps.evilhangman.persistence.WordsAssetsHelper;
 
 public class EvilHangman implements Hangman {
 	
@@ -22,32 +14,29 @@ public class EvilHangman implements Hangman {
 	private List<String> currentWord;
 	private List<Character> wrongGuessedChars;
 	private List<Character> correctGuessedChars;
-	private Context context;
 	
 	public void addLetter(char letter) {
-		List<String> availableWords = getAvailableWords();
-		Map<String, Integer> wordsWithTheLetter = findWordsWithTheLetter(letter, availableWords);
+		int wordsWithTheLetter = countWordsWithTheLetter(letter);
 		
-		holdingWord = getAvailableWords().get(0);
-		if (wordsWithTheLetter.size() == availableWords.size()) {
+		if (wordsWithTheLetter == words.size()) {
+			// HAVE to give up the letter
+			updateWords(letter);
 			correctGuessedChars.add(letter);
 			updateCurrentWord();
 		} else {
-			guesses--;
+			// Words left without the letter
+			removeWords(letter);
 			wrongGuessedChars.add(letter);
+			guesses--;
 		}
 	}
 	
 	public void setWords(List<String> words){
-		this.words = words;
+		this.words = new ArrayList<String>(words);
 	}
 	
 	public String getWord() {
-		if (!holdingWord.isEmpty()) {
-			return holdingWord;
-		} else {
-			return getCurrentWord();
-		}
+		return holdingWord;
 	}
 	
 	public String getCurrentWord() {
@@ -106,48 +95,21 @@ public class EvilHangman implements Hangman {
 	public void restart() {
 		setUp();
 	}
-
-	private List<String> getAvailableWords() {
-		Iterator<String> iterator = words.iterator();
-		while (iterator.hasNext()) {
-			String word = iterator.next();
-			for (char c : wrongGuessedChars) {
-				if (word.indexOf(c) != -1) {
-					iterator.remove();
-					break;
-				}
-			}
-		}
-		
-		if (wordHasLetters()) {
-			for (int i = 0; i < currentWord.size(); i++) {
-				String s = currentWord.get(i);
-				char c = s.toLowerCase().charAt(0);
-				if (c != DEFAULT_LETTER.charAt(0)) {
-					iterator = words.iterator();
-					while (iterator.hasNext()) {
-						String word = iterator.next();
-						if (word.charAt(i) != c) {
-							iterator.remove();
-							break;
-						}
-					}
-				}
-			}
-		}
-		
-		
-		return words;
-	}
 	
-	private Map<String, Integer> findWordsWithTheLetter(char letter, List<String> words) {
-		Map<String, Integer> map = new HashMap<String, Integer>();
+	private int countWordsWithTheLetter(char letter) {
+		int count = 0;
+		int letterCount = wordLength;
 		for (String word : words) {
 			if (word.indexOf(letter) != -1) {
-				map.put(word, findOccurrences(word, letter));
+				int occurences = findOccurrences(word, letter);
+				if (occurences < letterCount) {
+					letterCount = occurences;
+					holdingWord = word;
+				}
+				count++;
 			}
 		}
-		return map;
+		return count;
 	}
 	
 	private void updateCurrentWord() {
@@ -165,6 +127,36 @@ public class EvilHangman implements Hangman {
 		currentWord = list;
 	}
 	
+	private void updateWords(char letter) {
+		List<Integer> indexes = new ArrayList<Integer>();
+		for (int i = 0; i < holdingWord.length(); i++) {
+			if (holdingWord.charAt(i) == letter) {
+				indexes.add(i);
+			}
+		}
+
+		Iterator<String> iterator = words.iterator();
+		while (iterator.hasNext()) {
+			String word = iterator.next();
+			
+			for (Integer i : indexes) {
+				if (word.charAt(i) != letter) {
+					iterator.remove();
+					break;
+				}
+			}
+		}
+	}
+	
+	private void removeWords(char letter) {
+		Iterator<String> iterator = words.iterator();
+		while (iterator.hasNext()) {
+			if (iterator.next().indexOf(letter) != -1) {
+				iterator.remove();
+			}
+		}
+	}
+	
 	private int findOccurrences(String word, char letter) {
 		int count = 0;
 		for (int i = 0; i < word.length(); i++) {
@@ -173,15 +165,6 @@ public class EvilHangman implements Hangman {
 			}
 		}
 		return count;
-	}
-	
-	private boolean wordHasLetters() {
-		for (String s : currentWord) {
-			if (!s.equals("_")) {
-				return true;
-			}
-		}
-		return false;
 	}
 
 }
