@@ -2,20 +2,21 @@ package nl.mprog.apps.evilhangman.clickhandlers;
 
 import nl.mprog.apps.evilhangman.MainActivity;
 import nl.mprog.apps.evilhangman.hangman.Hangman;
+import android.content.Context;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-public class LettersClickHandler implements OnClickListener {
+public class ButtonClickHandler implements OnClickListener {
 	
 	private MainActivity activity;
 	private Hangman hangman;
 	
-	public LettersClickHandler(MainActivity activity) {
+	public ButtonClickHandler(MainActivity activity) {
 		this.activity = activity;
 		this.hangman = activity.getHangman();
 	}
-	
+
 	public void setHangman(Hangman hangman) {
 		this.hangman = hangman;
 	}
@@ -37,5 +38,4 @@ public class LettersClickHandler implements OnClickListener {
 			activity.gameWon(hangman.getWord(), hangman.getGuessesUsed());
 		}
 	}
-
 }

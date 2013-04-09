@@ -3,7 +3,7 @@ package nl.mprog.apps.evilhangman;
 import java.util.ArrayList;
 import java.util.List;
 
-import nl.mprog.apps.evilhangman.clickhandlers.LettersClickHandler;
+import nl.mprog.apps.evilhangman.clickhandlers.ButtonClickHandler;
 import nl.mprog.apps.evilhangman.hangman.EvilHangman;
 import nl.mprog.apps.evilhangman.hangman.Hangman;
 import nl.mprog.apps.evilhangman.hangman.NormalHangman;
@@ -13,56 +13,38 @@ import nl.mprog.apps.evilhangman.persistence.WordsAssetsHelper;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
-import android.widget.LinearLayout;
+import android.widget.GridView;
 import android.widget.TextView;
 
 public class MainActivity extends Activity {
 	
 	private TextView currentWord;
 	private TextView currentPogingen;
+	private GridView gridview;
 	
 	private Hangman hangman;
 	
 	private List<Button> buttons = new ArrayList<Button>();
-	private LettersClickHandler lettersClickHandler;
-
-	private static final int BUTTON_WIDTH = 59;
-	private static final int BUTTON_HEIGHT = 59;
+	private ButtonAdapter buttonAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-						
-		LinearLayout buttonLayout_1 = (LinearLayout) findViewById(R.id.button_layout_1);
-		for (char c = 'a'; c <= 'g'; c++) {
-			buttonLayout_1.addView(createButton(c));
-		}
 		
-		LinearLayout buttonLayout_2 = (LinearLayout) findViewById(R.id.button_layout_2);
-		for (char c = 'h'; c <= 'n'; c++) {
-			buttonLayout_2.addView(createButton(c));
-		}
+		gridview = (GridView) findViewById(R.id.gridview);
 		
-		LinearLayout buttonLayout_3 = (LinearLayout) findViewById(R.id.button_layout_3);
-		for (char c = 'o'; c <= 'u'; c++) {
-			buttonLayout_3.addView(createButton(c));
-		}
-		
-		LinearLayout buttonLayout_4 = (LinearLayout) findViewById(R.id.button_layout_4);
-		for (char c = 'v'; c <= 'z'; c++) {
-			buttonLayout_4.addView(createButton(c));
-		}
+		buttonAdapter = new ButtonAdapter(this);
+		gridview.setAdapter(buttonAdapter);
 		
 		setUp();
 	}
+	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -86,17 +68,6 @@ public class MainActivity extends Activity {
 	    return false;
 	}
 	
-	private Button createButton(char c) {
-		String text = c +"";
-		Button button = new Button(this);
-		button.setLayoutParams(new LayoutParams(BUTTON_WIDTH, BUTTON_HEIGHT));
-		button.setText(text.toUpperCase());
-		
-		buttons.add(button);
-		
-		return button;
-	}
-	
 	public Hangman getHangman() {
 		return hangman;
 	}
@@ -106,11 +77,7 @@ public class MainActivity extends Activity {
 	}
 	
 	public void gameWon(String word, int guesses) {
-//		currentPogingen.setText("YOU WIN! The word was: "+ word);
-//		
-//		for (Button button : buttons) {
-//			button.setEnabled(false);
-//		}
+
 		HighscoresHandler handler = new HighscoresHandler(this);
 		handler.addHighscore(new Highscore(word, guesses));
 		
@@ -121,11 +88,7 @@ public class MainActivity extends Activity {
 	}
 	
 	public void gameOver(String word) {
-//		currentPogingen.setText("YOU LOST! The word was: "+ word);
-		
-//		for (Button button : buttons) {
-//			button.setEnabled(false);
-//		}
+
 		Intent intent = new Intent(this, LostActivity.class);
 		intent.putExtra("word", word);
 		startActivity(intent);
@@ -143,7 +106,6 @@ public class MainActivity extends Activity {
 		boolean evil = sharedPref.getBoolean(SettingsActivity.PREF_EVIL, true);
 		
 		WordsAssetsHelper wordsAssetsHelper = new WordsAssetsHelper(this);
-		
 		List<String> words = wordsAssetsHelper.wordsByLength(length);
 		
 		currentWord = (TextView) findViewById(R.id.current_word);
@@ -159,14 +121,12 @@ public class MainActivity extends Activity {
 		currentPogingen.setText("Je hebt nog "+ hangman.getGuesses() +" pogingen over");
 		
 		currentWord.setText(hangman.getCurrentWord());
-		lettersClickHandler = new LettersClickHandler(this);
 		
-		lettersClickHandler.setHangman(hangman);
-		
-		for (Button button : buttons) {
-			button.setOnClickListener(lettersClickHandler);
-			button.setEnabled(true);
-		}
+		for(int i = 0; i < gridview.getChildCount(); i++) {
+			  Button btn = (Button) gridview.getChildAt(i);
+		      btn.setOnClickListener(new ButtonClickHandler(this));
+			  btn.setEnabled(true);
+		}				
 	}
 	
 	private void restart() {

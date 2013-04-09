@@ -13,8 +13,8 @@
           android:title="@string/settings_wordlength"
           android:summary="@string/settings_wordlength_desc"
           android:defaultValue="10"
-          android:max="15"
-          hangman:min="5"
+          android:max="24"
+          hangman:min="1"
       	  hangman:unitsLeft=""
           hangman:unitsRight=" Letters"
       />
@@ -24,7 +24,7 @@
           android:summary="@string/settings_guesses_desc"
           android:defaultValue="10"
           android:max="26"
-          hangman:min="5"
+          hangman:min="1"
       	  hangman:unitsLeft=""
           hangman:unitsRight=" Guesses"
       />
