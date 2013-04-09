@@ -40,27 +40,7 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		
-		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-		int guesses = sharedPref.getInt(SettingsActivity.PREF_GUESSES, 10);
-		int length = sharedPref.getInt(SettingsActivity.PREF_LENGTH, 10);
-		boolean evil = sharedPref.getBoolean(SettingsActivity.PREF_EVIL, true);
-		
-		WordsAssetsHelper wordsAssetsHelper = new WordsAssetsHelper(this);
-		
-		List<String> words = wordsAssetsHelper.wordsByLength(length);
-		
-		currentWord = (TextView) findViewById(R.id.current_word);
-		updateCurrentWordTextSize(length);
-
-		hangman = evil ? new EvilHangman() : new NormalHangman();
-		hangman.setMaxGuesses(guesses);
-		hangman.setWordLength(length);
-		hangman.setWords(words);
-		hangman.setUp();
-		
-		setUp();
-				
+						
 		LinearLayout buttonLayout_1 = (LinearLayout) findViewById(R.id.button_layout_1);
 		for (char c = 'a'; c <= 'g'; c++) {
 			buttonLayout_1.addView(createButton(c));
@@ -80,6 +60,8 @@ public class MainActivity extends Activity {
 		for (char c = 'v'; c <= 'z'; c++) {
 			buttonLayout_4.addView(createButton(c));
 		}
+		
+		setUp();
 	}
 
 	@Override
@@ -109,7 +91,6 @@ public class MainActivity extends Activity {
 		Button button = new Button(this);
 		button.setLayoutParams(new LayoutParams(BUTTON_WIDTH, BUTTON_HEIGHT));
 		button.setText(text.toUpperCase());
-		button.setOnClickListener(lettersClickHandler);
 		
 		buttons.add(button);
 		
@@ -156,37 +137,39 @@ public class MainActivity extends Activity {
 	}
 	
 	private void setUp() {
-		currentPogingen = (TextView) findViewById(R.id.current_pogingen);
-		currentPogingen.setText("Je hebt nog "+ hangman.getGuesses() +" pogingen over");
-		
-		currentWord.setText(hangman.getCurrentWord());
-		lettersClickHandler = new LettersClickHandler(this);
-	}
-	
-	private void restart() {
 		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-		boolean evil = sharedPref.getBoolean(SettingsActivity.PREF_EVIL, true);
+		int guesses = sharedPref.getInt(SettingsActivity.PREF_GUESSES, 10);
 		int length = sharedPref.getInt(SettingsActivity.PREF_LENGTH, 10);
-		int guesses = sharedPref.getInt(SettingsActivity.PREF_GUESSES, 5);
+		boolean evil = sharedPref.getBoolean(SettingsActivity.PREF_EVIL, true);
 		
 		WordsAssetsHelper wordsAssetsHelper = new WordsAssetsHelper(this);
 		
 		List<String> words = wordsAssetsHelper.wordsByLength(length);
 		
+		currentWord = (TextView) findViewById(R.id.current_word);
 		updateCurrentWordTextSize(length);
-		
+
 		hangman = evil ? new EvilHangman() : new NormalHangman();
 		hangman.setMaxGuesses(guesses);
 		hangman.setWordLength(length);
 		hangman.setWords(words);
-		hangman.restart();
+		hangman.setUp();
+		
+		currentPogingen = (TextView) findViewById(R.id.current_pogingen);
+		currentPogingen.setText("Je hebt nog "+ hangman.getGuesses() +" pogingen over");
+		
+		currentWord.setText(hangman.getCurrentWord());
+		lettersClickHandler = new LettersClickHandler(this);
 		
 		lettersClickHandler.setHangman(hangman);
+		
 		for (Button button : buttons) {
 			button.setOnClickListener(lettersClickHandler);
 			button.setEnabled(true);
 		}
-		
+	}
+	
+	private void restart() {
 		setUp();
 	}
 	

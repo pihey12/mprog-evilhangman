@@ -12,7 +12,6 @@ public class SettingsActivity extends PreferenceActivity {
     public static final String PREF_EVIL = "pref_evil";
     public static final String PREF_LENGTH = "pref_length";
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
