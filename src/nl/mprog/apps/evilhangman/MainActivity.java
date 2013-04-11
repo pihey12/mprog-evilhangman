@@ -11,8 +11,10 @@ import nl.mprog.apps.evilhangman.persistence.Highscore;
 import nl.mprog.apps.evilhangman.persistence.HighscoresHandler;
 import nl.mprog.apps.evilhangman.persistence.WordsAssetsHelper;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.Menu;
@@ -39,12 +41,23 @@ public class MainActivity extends Activity {
 		
 		gridview = (GridView) findViewById(R.id.gridview);
 		
-		buttonAdapter = new ButtonAdapter(this);
-		gridview.setAdapter(buttonAdapter);
+		if(isTablet(this)){
+			buttonAdapter = new ButtonAdapter(this, 100, 48);
+			gridview.setColumnWidth(100);
+		} else {
+			buttonAdapter = new ButtonAdapter(this, 60, 16);
+		}
 		
+		gridview.setAdapter(buttonAdapter);
+	
 		setUp();
 	}
 	
+	public boolean isTablet(Context context) {
+	    boolean xlarge = ((context.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == 4);
+	    boolean large = ((context.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE);
+	    return (xlarge || large);
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -134,15 +147,28 @@ public class MainActivity extends Activity {
 	}
 	
 	private void updateCurrentWordTextSize(int wordLength) {
-		if (wordLength < 10) {
-			currentWord.setTextSize(36);
-		} else if (wordLength < 15) {
-			currentWord.setTextSize(24);
-		} else if (wordLength < 20) {
-			currentWord.setTextSize(20);
+		if(isTablet(this)){
+			if (wordLength < 10) {
+				currentWord.setTextSize(60);
+			} else if (wordLength < 15) {
+				currentWord.setTextSize(52);
+			} else if (wordLength < 20) {
+				currentWord.setTextSize(40);
+			} else {
+				currentWord.setTextSize(40);
+			}
 		} else {
-			currentWord.setTextSize(16);
+			if (wordLength < 10) {
+				currentWord.setTextSize(36);
+			} else if (wordLength < 15) {
+				currentWord.setTextSize(24);
+			} else if (wordLength < 20) {
+				currentWord.setTextSize(20);
+			} else {
+				currentWord.setTextSize(16);
+			}
 		}
 	}
+	
 
 }

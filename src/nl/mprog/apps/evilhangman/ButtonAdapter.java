@@ -1,10 +1,8 @@
 package nl.mprog.apps.evilhangman;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import nl.mprog.apps.evilhangman.clickhandlers.ButtonClickHandler;
 import android.content.Context;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -13,9 +11,13 @@ import android.widget.GridView;
 
 public class ButtonAdapter extends BaseAdapter { 
     private Context context;
+    private int buttonSize;
+    private int fontSize;
 
-    public ButtonAdapter(Context c) { 
+    public ButtonAdapter(Context c, int bs, int fs) { 
     	context = c;
+    	buttonSize = bs;
+    	fontSize = fs;
     }
 
     public int getCount () {
@@ -34,9 +36,10 @@ public class ButtonAdapter extends BaseAdapter {
     	Button btn;         
         if (convertView == null) {     
             btn = new Button (context);
-            btn.setLayoutParams (new GridView.LayoutParams (60, 60));
+            btn.setLayoutParams (new GridView.LayoutParams (buttonSize, buttonSize));
             btn.setPadding (0,0,0,0); 
             btn.setText(Character.toString((char) (position+97)));
+            btn.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
         } else {        
             btn = (Button) convertView;
         }       
