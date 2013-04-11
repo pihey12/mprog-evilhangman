@@ -3,6 +3,7 @@ package nl.mprog.apps.evilhangman.clickhandlers;
 import nl.mprog.apps.evilhangman.MainActivity;
 import nl.mprog.apps.evilhangman.hangman.Hangman;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
