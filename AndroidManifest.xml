@@ -28,7 +28,7 @@
             android:parentActivityName="nl.mprog.apps.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="nl.mprog.apps.MainActivity" />
+                android:value="nl.mprog.apps.evilhangman.MainActivity" />
         </activity>
         <activity
             android:name="nl.mprog.apps.evilhangman.SettingsActivity"
@@ -36,7 +36,7 @@
             android:parentActivityName="nl.mprog.apps.evilhangman.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="nl.mprog.apps.MainActivity" />
+                android:value="nl.mprog.apps.evilhangman.MainActivity" />
         </activity>
         <activity
             android:name="nl.mprog.apps.evilhangman.WinActivity"
