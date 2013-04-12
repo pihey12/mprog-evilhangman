@@ -1,6 +1,6 @@
 package nl.mprog.apps.evilhangman.persistence;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import android.content.Context;
@@ -18,7 +18,7 @@ public class WordsAssetsHelper extends SQLiteAssetHelper {
     }
     
     public List<String> wordsByLength(int length){
-		List<String> list = new ArrayList<String>();
+		List<String> list = new LinkedList<String>();
     	SQLiteDatabase db = getReadableDatabase();
     	
     	String sql = "SELECT * FROM " + DATABASE_NAME + " WHERE length = " + length + ";";
