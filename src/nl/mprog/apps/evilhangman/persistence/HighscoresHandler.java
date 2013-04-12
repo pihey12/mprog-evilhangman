@@ -9,6 +9,13 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+/**
+ * Mapper between the database and the Highscore model
+ * 
+ * @author Marten
+ * @author Sebastiaan
+ *
+ */
 public class HighscoresHandler extends SQLiteOpenHelper {
 	
 	private static final int VERSION = 1;

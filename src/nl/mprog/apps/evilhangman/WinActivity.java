@@ -10,6 +10,13 @@ import android.view.View;
 import android.widget.TextView;
 import android.support.v4.app.NavUtils;
 
+/**
+ * Activity that pops up when the user has won the game.
+ * 
+ * @author Marten
+ * @author Sebastiaan
+ *
+ */
 public class WinActivity extends Activity {
 
 	@Override

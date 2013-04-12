@@ -12,6 +12,13 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+/**
+ * Activity that shows the top 10 highscores from the user.
+ * 
+ * @author Marten
+ * @author Sebastiaan
+ *
+ */
 public class HighscoresActivity extends Activity {
 	
 	public static final String HIGHSCORE = "highscore";

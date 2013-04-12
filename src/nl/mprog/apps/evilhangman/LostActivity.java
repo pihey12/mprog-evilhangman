@@ -10,6 +10,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+/**
+ * Activity that will pop up when the user has lost the game
+ * 
+ * @author Marten
+ * @author Sebastiaan
+ *
+ */
 public class LostActivity extends Activity {
 
 	@Override

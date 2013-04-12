@@ -11,6 +11,13 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
 
+/**
+ * The adapter that will create all the buttons that represent the alfabet.
+ * 
+ * @author Marten
+ * @author Sebastiaan
+ *
+ */
 public class ButtonAdapter extends BaseAdapter {
 	
     private Context context;
