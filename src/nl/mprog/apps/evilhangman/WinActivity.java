@@ -58,6 +58,7 @@ public class WinActivity extends Activity {
 	}
 
 	public void restartGame(View view) {
+		setResult(RESULT_OK);
 		finish();
 	}
 	

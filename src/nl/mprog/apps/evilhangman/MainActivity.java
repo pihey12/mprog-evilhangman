@@ -11,7 +11,6 @@ import nl.mprog.apps.evilhangman.persistence.Highscore;
 import nl.mprog.apps.evilhangman.persistence.HighscoresHandler;
 import nl.mprog.apps.evilhangman.persistence.WordsAssetsHelper;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -24,6 +23,8 @@ import android.widget.GridView;
 import android.widget.TextView;
 
 public class MainActivity extends Activity {
+	
+	static final int RESTART_GAME = 1337;
 	
 	private TextView currentWord;
 	private TextView currentGuesses;
@@ -38,24 +39,8 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
-		gridview = (GridView) findViewById(R.id.gridview);
-		
-		if(isTablet(this)){
-			buttonAdapter = new ButtonAdapter(this, 100, 48);
-			gridview.setColumnWidth(100);
-		} else {
-			buttonAdapter = new ButtonAdapter(this, 60, 16);
-		}
-		
-		gridview.setAdapter(buttonAdapter);
-	
-		setUp();
-	}
-	
-	public boolean isTablet(Context context) {
-	    boolean xlarge = ((context.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == 4);
-	    boolean large = ((context.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE);
-	    return (xlarge || large);
+		initializeGrid();
+		startHangmanGame();
 	}
 
 	@Override
@@ -69,7 +54,7 @@ public class MainActivity extends Activity {
 	    // Handle item selection
 	    switch (item.getItemId()) {
 	        case R.id.restart:
-	            this.restart();
+	            restart();
 	            return true;
 	        case R.id.settings:
 	        	Intent intent = new Intent(this, SettingsActivity.class);
@@ -80,38 +65,51 @@ public class MainActivity extends Activity {
 	    return false;
 	}
 	
-	public Hangman getHangman() {
-		return hangman;
-	}
-	
 	public void setWord(String word) {
 		currentWord.setText(word);
 	}
 	
 	public void gameWon(String word, int guesses) {
-
 		HighscoresHandler handler = new HighscoresHandler(this);
 		handler.addHighscore(new Highscore(word, guesses));
 		
 		Intent intent = new Intent(this, WinActivity.class);
 		intent.putExtra("word", word);
-		startActivity(intent);
-		restart();
+		startActivityForResult(intent, RESTART_GAME);
 	}
 	
 	public void gameOver(String word) {
-
 		Intent intent = new Intent(this, LostActivity.class);
 		intent.putExtra("word", word);
-		startActivity(intent);
-		restart();
+		startActivityForResult(intent, RESTART_GAME);
 	}
 	
 	public void updateGuesses(int guesses) {
 		currentGuesses.setText("Je hebt nog "+ guesses +" pogingen over");
 	}
 	
-	private void setUp() {
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (requestCode == RESTART_GAME) {
+			if (resultCode == RESULT_OK) {
+				restart();
+			}
+		}
+	}
+	
+	private void initializeGrid() {
+		gridview = (GridView) findViewById(R.id.gridview);
+		
+		if (isTablet()){
+			buttonAdapter = new ButtonAdapter(this, 100, 48);
+			gridview.setColumnWidth(100);
+		} else {
+			buttonAdapter = new ButtonAdapter(this, 60, 16);
+		}
+		
+		gridview.setAdapter(buttonAdapter);
+	}
+	
+	private void startHangmanGame() {
 		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
 		int guesses = sharedPref.getInt(SettingsActivity.PREF_GUESSES, 10);
 		int length = sharedPref.getInt(SettingsActivity.PREF_LENGTH, 10);
@@ -133,17 +131,23 @@ public class MainActivity extends Activity {
 		
 		for(int i = 0; i < gridview.getChildCount(); i++) {
 			  Button btn = (Button) gridview.getChildAt(i);
-		      btn.setOnClickListener(new ButtonClickHandler(this));
+		      btn.setOnClickListener(new ButtonClickHandler(this, hangman));
 			  btn.setEnabled(true);
 		}				
 	}
 	
 	private void restart() {
-		setUp();
+		startHangmanGame();
+	}
+	
+	private boolean isTablet() {
+	    boolean xlarge = ((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == 4);
+	    boolean large = ((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE);
+	    return (xlarge || large);
 	}
 	
 	private void updateCurrentWordTextSize(int wordLength) {
-		if(isTablet(this)){
+		if (isTablet()){
 			if (wordLength < 10) {
 				currentWord.setTextSize(60);
 			} else if (wordLength < 15) {
