@@ -2,6 +2,7 @@ package nl.mprog.apps.evilhangman.hangman;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 public class EvilHangman implements Hangman {
@@ -69,7 +70,7 @@ public class EvilHangman implements Hangman {
 
 	public void initializeWith(int wordLength, int maxGuesses,
 			List<String> words) {
-		this.words = new ArrayList<String>(words);
+		this.words = new LinkedList<String>(words);
 		
 		guesses = maxGuesses;
 		for (int i = 0; i < wordLength; i++) {
