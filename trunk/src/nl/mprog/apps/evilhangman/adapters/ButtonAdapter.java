@@ -1,5 +1,6 @@
-package nl.mprog.apps.evilhangman;
+package nl.mprog.apps.evilhangman.adapters;
 
+import nl.mprog.apps.evilhangman.MainActivity;
 import nl.mprog.apps.evilhangman.clickhandlers.ButtonClickHandler;
 import android.content.Context;
 import android.util.TypedValue;

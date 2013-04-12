@@ -2,6 +2,7 @@ package nl.mprog.apps.evilhangman;
 
 import java.util.List;
 
+import nl.mprog.apps.evilhangman.adapters.ButtonAdapter;
 import nl.mprog.apps.evilhangman.clickhandlers.ButtonClickHandler;
 import nl.mprog.apps.evilhangman.hangman.EvilHangman;
 import nl.mprog.apps.evilhangman.hangman.Hangman;
