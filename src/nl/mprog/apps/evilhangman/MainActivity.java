@@ -1,6 +1,5 @@
 package nl.mprog.apps.evilhangman;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import nl.mprog.apps.evilhangman.clickhandlers.ButtonClickHandler;
@@ -26,12 +25,11 @@ import android.widget.TextView;
 public class MainActivity extends Activity {
 	
 	private TextView currentWord;
-	private TextView currentPogingen;
+	private TextView currentGuesses;
 	private GridView gridview;
 	
 	private Hangman hangman;
 	
-	private List<Button> buttons = new ArrayList<Button>();
 	private ButtonAdapter buttonAdapter;
 
 	@Override
@@ -109,7 +107,7 @@ public class MainActivity extends Activity {
 	}
 	
 	public void updateGuesses(int guesses) {
-		currentPogingen.setText("Je hebt nog "+ guesses +" pogingen over");
+		currentGuesses.setText("Je hebt nog "+ guesses +" pogingen over");
 	}
 	
 	private void setUp() {
@@ -125,13 +123,10 @@ public class MainActivity extends Activity {
 		updateCurrentWordTextSize(length);
 
 		hangman = evil ? new EvilHangman() : new NormalHangman();
-		hangman.setMaxGuesses(guesses);
-		hangman.setWordLength(length);
-		hangman.setWords(words);
-		hangman.setUp();
+		hangman.initializeWith(length, guesses, words);
 		
-		currentPogingen = (TextView) findViewById(R.id.current_pogingen);
-		currentPogingen.setText("Je hebt nog "+ hangman.getGuesses() +" pogingen over");
+		currentGuesses = (TextView) findViewById(R.id.current_guesses);
+		currentGuesses.setText("Je hebt nog "+ hangman.getGuesses() +" pogingen over");
 		
 		currentWord.setText(hangman.getCurrentWord());
 		

@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import nl.mprog.apps.evilhangman.persistence.WordsAssetsHelper;
-import android.content.Context;
-
 public class NormalHangman implements Hangman {
 
 	private int wordLength;
@@ -17,9 +14,7 @@ public class NormalHangman implements Hangman {
 	private List<String> currentWord;
 	private List<Character> wrongGuessedChars;
 	private List<Character> correctGuessedChars;
-	private Context context;
 	
-	@Override
 	public void addLetter(char letter) {
 		
 		if(holdingWord.indexOf(letter) != -1 ){
@@ -47,28 +42,12 @@ public class NormalHangman implements Hangman {
 		return res;
 	}
 
-	public void setWords(List<String> words){
-		this.words = words;
-	}
-
 	public int getWordLength() {
 		return wordLength;
-	}
-
-	public void setWordLength(int length) {
-		this.wordLength = length;
 	}
 	
 	public int getGuesses() {
 		return guesses;
-	}
-	
-	public void setContext(Context context){
-		this.context = context;
-	}
-
-	public void setMaxGuesses(int maxGuesses) {
-		this.maxGuesses = maxGuesses;
 	}
 
 	public boolean gameOver() {
@@ -86,7 +65,6 @@ public class NormalHangman implements Hangman {
 		return finished;
 	}
 
-	@Override
 	public void setUp() {
 
 		currentWord = new ArrayList<String>();
@@ -103,7 +81,6 @@ public class NormalHangman implements Hangman {
 		this.holdingWord = this.words.get(random.nextInt(this.words.size()));
 	}
 
-	@Override
 	public void restart() {
 		setUp();
 	}
@@ -125,6 +102,15 @@ public class NormalHangman implements Hangman {
 
 	public int getGuessesUsed() {
 		return wrongGuessedChars.size();
+	}
+
+	public void initializeWith(int wordLength, int maxGuesses,
+			List<String> words) {
+		this.wordLength = wordLength;
+		this.words = new ArrayList<String>(words);
+		this.maxGuesses = maxGuesses;
+		
+		setUp();
 	}
 
 }

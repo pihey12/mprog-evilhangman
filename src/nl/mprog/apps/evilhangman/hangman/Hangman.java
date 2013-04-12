@@ -6,18 +6,16 @@ public interface Hangman {
 	
 	static String DEFAULT_LETTER = "_";
 	
+	public void initializeWith(int wordLength, int maxGuesses, List<String> words);
 	public void addLetter(char letter);
 	public String getWord();
 	public String getCurrentWord();
 	public int getWordLength();
-	public void setWordLength(int length);
 	public int getGuesses();
 	public int getGuessesUsed();
-	public void setMaxGuesses(int maxGuesses);
 	public boolean gameOver();
 	public boolean gameWon();
 	public void setUp();
 	public void restart();
-	public void setWords(List<String> words);
 
 }

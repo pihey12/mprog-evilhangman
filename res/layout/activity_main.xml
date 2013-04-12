@@ -31,7 +31,7 @@
 	        android:layout_centerHorizontal="true"
 	        android:textStyle="bold" />
 	    
-	    <TextView android:id="@+id/current_pogingen"
+	    <TextView android:id="@+id/current_guesses"
 	        android:layout_width="wrap_content"
 	        android:layout_height="50dp"
 	        android:layout_marginTop="0dp"
@@ -43,7 +43,7 @@
 	        android:textStyle="bold" />
 	     
 	     <GridView
-			android:layout_below="@id/current_pogingen"
+			android:layout_below="@id/current_guesses"
 		    android:id="@+id/gridview"
 			android:layout_width="wrap_content" 
 			android:layout_height="wrap_content"
