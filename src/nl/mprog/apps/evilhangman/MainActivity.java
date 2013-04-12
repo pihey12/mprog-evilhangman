@@ -94,7 +94,7 @@ public class MainActivity extends Activity {
 	 */
 	public void gameWon(String word, int guesses) {
 		HighscoresHandler handler = new HighscoresHandler(this);
-		handler.addHighscore(new Highscore(word, guesses));
+		handler.addHighscore(new Highscore(word, guesses, hangman instanceof EvilHangman));
 		
 		Intent intent = new Intent(this, WinActivity.class);
 		intent.putExtra("word", word);

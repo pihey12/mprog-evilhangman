@@ -8,6 +8,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
 
 /**
  * Mapper between the database and the Highscore model
@@ -30,7 +31,8 @@ public class HighscoresHandler extends SQLiteOpenHelper {
 		String create = "CREATE TABLE "+ NAME +
 				" (id INTEGER PRIMARY KEY," +
 				" word TEXT," +
-				" guesses INTEGER)";
+				" guesses INTEGER," +
+				" evil INTEGER)";
 		db.execSQL(create);
 	}
 
@@ -46,6 +48,7 @@ public class HighscoresHandler extends SQLiteOpenHelper {
 		ContentValues values = new ContentValues();
 		values.put("word", highscore.getWord());
 		values.put("guesses", highscore.getGuesses());
+		values.put("evil", highscore.isEvil() ? 1 : 0);
 		
 		db.insert(NAME, null, values);
 		db.close();
@@ -60,7 +63,8 @@ public class HighscoresHandler extends SQLiteOpenHelper {
 		
 		if (cursor.moveToFirst()) {
 			do {
-				Highscore highscore = new Highscore(cursor.getString(1), Integer.parseInt(cursor.getString(2)));
+				boolean evil = cursor.getInt(3) == 1;
+				Highscore highscore = new Highscore(cursor.getString(1), cursor.getInt(2), evil);
 				list.add(highscore);
 			} while (cursor.moveToNext());
 		}
