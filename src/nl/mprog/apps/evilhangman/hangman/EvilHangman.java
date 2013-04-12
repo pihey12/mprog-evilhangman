@@ -6,28 +6,29 @@ import java.util.List;
 
 public class EvilHangman implements Hangman {
 	
-	private int wordLength;
 	private String holdingWord;
 	private List<String> words;
 	private int guesses;
-	private int maxGuesses;
 	private List<String> currentWord;
 	private List<Character> wrongGuessedChars;
 	private List<Character> correctGuessedChars;
 	
+	public EvilHangman() {
+		wrongGuessedChars = new ArrayList<Character>();
+		correctGuessedChars = new ArrayList<Character>();
+		currentWord = new ArrayList<String>();
+	}
+	
 	public void addLetter(char letter) {
-		int wordsWithTheLetter = countWordsWithTheLetter(letter);
-		
-		if (wordsWithTheLetter == words.size()) {
-			// HAVE to give up the letter
-			updateWords(letter);
-			correctGuessedChars.add(letter);
-			updateCurrentWord();
-		} else {
-			// Words left without the letter
+		if (wordWithoutLetterExists(letter)) {
 			removeWords(letter);
 			wrongGuessedChars.add(letter);
 			guesses--;
+		} else {
+			holdingWord = words.get(0);
+			updateWords(letter);
+			correctGuessedChars.add(letter);
+			updateCurrentWord();
 		}
 	}
 	
@@ -41,10 +42,6 @@ public class EvilHangman implements Hangman {
 			res += s +" ";
 		}
 		return res;
-	}
-
-	public int getWordLength() {
-		return wordLength;
 	}
 
 	public int getGuesses() {
@@ -69,35 +66,26 @@ public class EvilHangman implements Hangman {
 		
 		return finished;
 	}
-	
-	public void setUp() {
-		currentWord = new ArrayList<String>();
+
+	public void initializeWith(int wordLength, int maxGuesses,
+			List<String> words) {
+		this.words = new ArrayList<String>(words);
+		
 		guesses = maxGuesses;
 		for (int i = 0; i < wordLength; i++) {
 			currentWord.add(DEFAULT_LETTER);
 		}
-		wrongGuessedChars = new ArrayList<Character>();
-		correctGuessedChars = new ArrayList<Character>();
 	}
 	
-	public void restart() {
-		setUp();
-	}
-	
-	private int countWordsWithTheLetter(char letter) {
-		int count = 0;
-		int letterCount = wordLength;
+	private boolean wordWithoutLetterExists(char letter) {
 		for (String word : words) {
-			if (word.indexOf(letter) != -1) {
-				int occurences = findOccurrences(word, letter);
-				if (occurences < letterCount) {
-					letterCount = occurences;
-					holdingWord = word;
-				}
-				count++;
+			if (word.indexOf(letter) == -1) {
+				holdingWord = word;
+				return true;
 			}
 		}
-		return count;
+		
+		return false;
 	}
 	
 	private void updateCurrentWord() {
@@ -125,8 +113,27 @@ public class EvilHangman implements Hangman {
 
 		Iterator<String> iterator = words.iterator();
 		while (iterator.hasNext()) {
+			boolean removed = false;
+			
 			String word = iterator.next();
 			
+			// Remove the word if it contains the letter, but not at the right index
+			// e.g. "eager" will be removed when the word is _ _ _ e _
+			for (int i = 0; i < word.length(); i++) {
+				char c = word.charAt(i);
+				if (c == letter && !indexes.contains(i)) {
+					iterator.remove();
+					removed = true;
+					break;
+				}
+			}
+			
+			if (removed) {
+				continue;
+			}
+			
+			// Remove the word if the letter is not located at the right index
+			// e.g. "test" will be removed when the word is e _ _ _
 			for (Integer i : indexes) {
 				if (word.charAt(i) != letter) {
 					iterator.remove();
@@ -143,25 +150,6 @@ public class EvilHangman implements Hangman {
 				iterator.remove();
 			}
 		}
-	}
-	
-	private int findOccurrences(String word, char letter) {
-		int count = 0;
-		for (int i = 0; i < word.length(); i++) {
-			if (word.charAt(i) == letter) {
-				count++;
-			}
-		}
-		return count;
-	}
-
-	public void initializeWith(int wordLength, int maxGuesses,
-			List<String> words) {
-		this.wordLength = wordLength;
-		this.words = new ArrayList<String>(words);
-		this.maxGuesses = maxGuesses;
-		
-		setUp();
 	}
 
 }
