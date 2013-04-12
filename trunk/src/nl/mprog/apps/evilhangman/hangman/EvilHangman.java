@@ -31,10 +31,6 @@ public class EvilHangman implements Hangman {
 		}
 	}
 	
-	public void setWords(List<String> words){
-		this.words = new ArrayList<String>(words);
-	}
-	
 	public String getWord() {
 		return holdingWord;
 	}
@@ -51,20 +47,12 @@ public class EvilHangman implements Hangman {
 		return wordLength;
 	}
 
-	public void setWordLength(int length) {
-		this.wordLength = length;
-	}
-
 	public int getGuesses() {
 		return guesses;
 	}
 	
 	public int getGuessesUsed() {
 		return wrongGuessedChars.size();
-	}
-
-	public void setMaxGuesses(int maxGuesses) {
-		this.maxGuesses = maxGuesses;
 	}
 
 	public boolean gameOver() {
@@ -167,7 +155,6 @@ public class EvilHangman implements Hangman {
 		return count;
 	}
 
-	@Override
 	public void initializeWith(int wordLength, int maxGuesses,
 			List<String> words) {
 		this.wordLength = wordLength;
