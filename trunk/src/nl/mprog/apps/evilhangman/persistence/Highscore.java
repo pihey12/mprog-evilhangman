@@ -1,5 +1,12 @@
 package nl.mprog.apps.evilhangman.persistence;
 
+/**
+ * The model for the highscores
+ * 
+ * @author Marten
+ * @author Sebastiaan
+ *
+ */
 public class Highscore {
 	
 	private String word;

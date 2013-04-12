@@ -7,6 +7,13 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
 
+/**
+ * The clickhandler for the buttons that represent the alfabet.
+ * 
+ * @author Marten
+ * @author Sebastiaan
+ *
+ */
 public class ButtonClickHandler implements OnClickListener {
 	
 	private MainActivity activity;

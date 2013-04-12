@@ -9,7 +9,15 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 
+/**
+ * Mapper to get all the words, the sqlite database is saved under assets/databases/words.zip
+ * 
+ * @author Marten
+ * @author Sebastiaan
+ *
+ */
 public class WordsAssetsHelper extends SQLiteAssetHelper {
+	
     private static final String DATABASE_NAME = "words";
     private static final int DATABASE_VERSION = 1;
 

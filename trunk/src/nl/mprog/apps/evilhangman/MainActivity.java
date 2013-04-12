@@ -22,6 +22,13 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.TextView;
 
+/**
+ * The main activity which starts the hangman game and the user interface.
+ * 
+ * @author Marten
+ * @author Sebastiaan
+ *
+ */
 public class MainActivity extends Activity {
 	
 	static final int RESTART_GAME = 1337;

@@ -4,6 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Standard hangman game with a single word to guess.
+ * The word to guess will be decided in the initializeWith method.
+ * http://en.wikipedia.org/wiki/Hangman_%28game%29
+ * 
+ * @author Marten
+ * @author Sebastiaan
+ *
+ */
 public class NormalHangman implements Hangman {
 
 	private String holdingWord;
@@ -19,7 +28,7 @@ public class NormalHangman implements Hangman {
 	}
 	
 	public void addLetter(char letter) {
-		if(holdingWord.indexOf(letter) != -1 ){
+		if (holdingWord.indexOf(letter) != -1){
 			correctGuessedChars.add(letter);
 			updateCurrentWord();
 		} else {
@@ -78,6 +87,10 @@ public class NormalHangman implements Hangman {
 		return finished;
 	}
 	
+	/**
+	 * Checks which letters have been guessed already, and replaces the ones that aren't guessed yet
+	 *  with the {@link #DEFAULT_LETTER}.
+	 */
 	private void updateCurrentWord() {
 		List<String> list = new ArrayList<String>();
 		
