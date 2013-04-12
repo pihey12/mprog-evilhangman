@@ -21,9 +21,6 @@ public class ButtonClickHandler implements OnClickListener {
 		Button button = (Button) v;
 		button.setEnabled(false);
 		
-		Toast toast = Toast.makeText(activity, "Button "+ button.getText() +" clicked!", 2);
-		toast.show();
-		
 		char letter = button.getText().toString().charAt(0);
 		hangman.addLetter(letter);
 		
