@@ -43,7 +43,7 @@ public class MainActivity extends Activity {
 		currentGuesses = (TextView) findViewById(R.id.current_guesses);
 		currentWord = (TextView) findViewById(R.id.current_word);
 		
-		startHangmanGame();
+		startNewHangmanGame();
 		initializeGrid();
 	}
 
@@ -58,7 +58,7 @@ public class MainActivity extends Activity {
 	    // Handle item selection
 	    switch (item.getItemId()) {
 	        case R.id.restart:
-	            restart();
+	        	startNewHangmanGame();
 	            return true;
 	        case R.id.settings:
 	        	Intent intent = new Intent(this, SettingsActivity.class);
@@ -96,7 +96,7 @@ public class MainActivity extends Activity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == RESTART_GAME) {
 			if (resultCode == RESULT_OK) {
-				restart();
+				startNewHangmanGame();
 			}
 		}
 	}
@@ -113,7 +113,7 @@ public class MainActivity extends Activity {
 		gridview.setAdapter(buttonAdapter);
 	}
 	
-	private void startHangmanGame() {
+	private void startNewHangmanGame() {
 		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
 		int guesses = sharedPref.getInt(SettingsActivity.PREF_GUESSES, 10);
 		int length = sharedPref.getInt(SettingsActivity.PREF_LENGTH, 10);
@@ -136,10 +136,6 @@ public class MainActivity extends Activity {
 		      btn.setOnClickListener(new ButtonClickHandler(this, hangman));
 			  btn.setEnabled(true);
 		}
-	}
-	
-	private void restart() {
-		startHangmanGame();
 	}
 	
 	private boolean isTablet() {
