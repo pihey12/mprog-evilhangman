@@ -39,8 +39,12 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
-		initializeGrid();
+		gridview = (GridView) findViewById(R.id.gridview);
+		currentGuesses = (TextView) findViewById(R.id.current_guesses);
+		currentWord = (TextView) findViewById(R.id.current_word);
+		
 		startHangmanGame();
+		initializeGrid();
 	}
 
 	@Override
@@ -97,8 +101,6 @@ public class MainActivity extends Activity {
 	}
 	
 	private void initializeGrid() {
-		gridview = (GridView) findViewById(R.id.gridview);
-		
 		if (isTablet()){
 			buttonAdapter = new ButtonAdapter(this, 100, 48);
 			gridview.setColumnWidth(100);
@@ -106,6 +108,7 @@ public class MainActivity extends Activity {
 			buttonAdapter = new ButtonAdapter(this, 60, 16);
 		}
 		
+		buttonAdapter.setHangman(hangman);
 		gridview.setAdapter(buttonAdapter);
 	}
 	
@@ -118,13 +121,11 @@ public class MainActivity extends Activity {
 		WordsAssetsHelper wordsAssetsHelper = new WordsAssetsHelper(this);
 		List<String> words = wordsAssetsHelper.wordsByLength(length);
 		
-		currentWord = (TextView) findViewById(R.id.current_word);
 		updateCurrentWordTextSize(length);
 
 		hangman = evil ? new EvilHangman() : new NormalHangman();
 		hangman.initializeWith(length, guesses, words);
 		
-		currentGuesses = (TextView) findViewById(R.id.current_guesses);
 		currentGuesses.setText("Je hebt nog "+ hangman.getGuesses() +" pogingen over");
 		
 		currentWord.setText(hangman.getCurrentWord());
@@ -133,7 +134,7 @@ public class MainActivity extends Activity {
 			  Button btn = (Button) gridview.getChildAt(i);
 		      btn.setOnClickListener(new ButtonClickHandler(this, hangman));
 			  btn.setEnabled(true);
-		}				
+		}
 	}
 	
 	private void restart() {

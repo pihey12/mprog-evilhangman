@@ -1,5 +1,8 @@
 package nl.mprog.apps.evilhangman.adapters;
 
+import nl.mprog.apps.evilhangman.MainActivity;
+import nl.mprog.apps.evilhangman.clickhandlers.ButtonClickHandler;
+import nl.mprog.apps.evilhangman.hangman.Hangman;
 import android.content.Context;
 import android.util.TypedValue;
 import android.view.View;
@@ -14,14 +17,20 @@ public class ButtonAdapter extends BaseAdapter {
     private int buttonSize;
     private int fontSize;
     
+    private Hangman hangman;
+    
     public ButtonAdapter(Context c, int bs, int fs) { 
     	context = c;
     	buttonSize = bs;
     	fontSize = fs;
     }
+    
+    public void setHangman(Hangman hangman) {
+		this.hangman = hangman;
+	}
 
     public int getCount () {
-    	return 26; 
+    	return 26;
     }
 
     public Object getItem(int position) {
@@ -40,6 +49,7 @@ public class ButtonAdapter extends BaseAdapter {
             btn.setPadding(0,0,0,0); 
             btn.setText(Character.toString((char) (position+97)));
             btn.setTextSize(TypedValue.COMPLEX_UNIT_SP, fontSize);
+		    btn.setOnClickListener(new ButtonClickHandler((MainActivity) context, hangman));
         } else {        
             btn = (Button) convertView;
         }       
