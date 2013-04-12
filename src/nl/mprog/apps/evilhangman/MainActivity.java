@@ -89,7 +89,8 @@ public class MainActivity extends Activity {
 	}
 	
 	public void updateGuesses(int guesses) {
-		currentGuesses.setText("Je hebt nog "+ guesses +" pogingen over");
+		String s = getResources().getString(R.string.current_guesses);
+		currentGuesses.setText(s.replace("###", ""+ guesses));
 	}
 	
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
