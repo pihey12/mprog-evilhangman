@@ -167,4 +167,14 @@ public class EvilHangman implements Hangman {
 		return count;
 	}
 
+	@Override
+	public void initializeWith(int wordLength, int maxGuesses,
+			List<String> words) {
+		this.wordLength = wordLength;
+		this.words = new ArrayList<String>(words);
+		this.maxGuesses = maxGuesses;
+		
+		setUp();
+	}
+
 }
