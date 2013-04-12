@@ -67,6 +67,7 @@ public class HighscoresActivity extends Activity {
 	}
 	
 	public void playAgain(View view) {
+		setResult(RESULT_OK);
 		finish();
 	}
 

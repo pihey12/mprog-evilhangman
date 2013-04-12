@@ -64,8 +64,16 @@ public class WinActivity extends Activity {
 	
 	public void viewHighscores(View view) {
 		Intent intent = new Intent(this, HighscoresActivity.class);
-		startActivity(intent);
-		finish();
+		startActivityForResult(intent, MainActivity.RESTART_GAME);
+	}
+	
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (requestCode == MainActivity.RESTART_GAME) {
+			if (resultCode == RESULT_OK) {
+				setResult(RESULT_OK);
+				finish();
+			}
+		}
 	}
 
 }
