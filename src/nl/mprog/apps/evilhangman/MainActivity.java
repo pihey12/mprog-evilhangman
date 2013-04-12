@@ -31,6 +31,9 @@ import android.widget.TextView;
  */
 public class MainActivity extends Activity {
 	
+	/**
+	 * The code that's being used to know when the activity is finished
+	 */
 	static final int RESTART_GAME = 1337;
 	
 	private TextView currentWord;
@@ -74,10 +77,21 @@ public class MainActivity extends Activity {
 	    return false;
 	}
 	
+	/**
+	 * Informs the user about the word he has been trying to guess
+	 * 
+	 * @param word The word to show
+	 */
 	public void setWord(String word) {
 		currentWord.setText(word);
 	}
 	
+	/**
+	 * Starts the win activity since the user has won the game
+	 * 
+	 * @param word The word the user guessed
+	 * @param guesses The amount of guesses that the user has used
+	 */
 	public void gameWon(String word, int guesses) {
 		HighscoresHandler handler = new HighscoresHandler(this);
 		handler.addHighscore(new Highscore(word, guesses));
@@ -87,17 +101,32 @@ public class MainActivity extends Activity {
 		startActivityForResult(intent, RESTART_GAME);
 	}
 	
+	/**
+	 * Starts the lost activity since the user has lost the game
+	 * 
+	 * @param word The word the user failed to guess
+	 */
 	public void gameOver(String word) {
 		Intent intent = new Intent(this, LostActivity.class);
 		intent.putExtra("word", word);
 		startActivityForResult(intent, RESTART_GAME);
 	}
 	
+	/**
+	 * Informs the user about the amount of guesses he has left.
+	 * 
+	 * @param guesses The guesses that the user has left
+	 */
 	public void updateGuesses(int guesses) {
 		String s = getResources().getString(R.string.current_guesses);
 		currentGuesses.setText(s.replace("###", ""+ guesses));
 	}
 	
+	/**
+	 * Is used to see when an activity is finished.
+	 * This is done because the game should restart after the win/loss activity is finished
+	 *  so that there is no huge delay/lagg when entering those activities.
+	 */
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == RESTART_GAME) {
 			if (resultCode == RESULT_OK) {
@@ -106,6 +135,9 @@ public class MainActivity extends Activity {
 		}
 	}
 	
+	/**
+	 * Creates all the buttons that represents the alfabet and places them on the grid.
+	 */
 	private void initializeGrid() {
 		ButtonAdapter buttonAdapter;
 		if (isTablet()){
@@ -119,6 +151,9 @@ public class MainActivity extends Activity {
 		gridview.setAdapter(buttonAdapter);
 	}
 	
+	/**
+	 * Initializes a new hangman game according to the given settings.
+	 */
 	private void startNewHangmanGame() {
 		SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
 		int guesses = sharedPref.getInt(SettingsActivity.PREF_GUESSES, 10);
@@ -133,9 +168,8 @@ public class MainActivity extends Activity {
 		hangman = evil ? new EvilHangman() : new NormalHangman();
 		hangman.initializeWith(length, guesses, words);
 		
-		currentGuesses.setText("Je hebt nog "+ hangman.getGuesses() +" pogingen over");
-		
-		currentWord.setText(hangman.getCurrentWord());
+		updateGuesses(guesses);
+		setWord(hangman.getCurrentWord());
 		
 		for(int i = 0; i < gridview.getChildCount(); i++) {
 			  Button btn = (Button) gridview.getChildAt(i);
@@ -144,12 +178,25 @@ public class MainActivity extends Activity {
 		}
 	}
 	
+	/**
+	 * Checks if the user is using a tablet
+	 * 
+	 * @return Whether the user uses a tablet or not
+	 */
 	private boolean isTablet() {
 	    boolean xlarge = ((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == 4);
 	    boolean large = ((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE);
 	    return (xlarge || large);
 	}
 	
+	/**
+	 * Updates the text size of the word to be guessed based on the length of the word
+	 *  and whether the user uses a tablet or not.
+	 *  
+	 *  For user interface purposes
+	 * 
+	 * @param wordLength The length of the word to be guessed
+	 */
 	private void updateCurrentWordTextSize(int wordLength) {
 		if (isTablet()){
 			if (wordLength < 10) {
