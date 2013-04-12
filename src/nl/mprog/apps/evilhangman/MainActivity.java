@@ -31,8 +31,6 @@ public class MainActivity extends Activity {
 	private GridView gridview;
 	
 	private Hangman hangman;
-	
-	private ButtonAdapter buttonAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +100,7 @@ public class MainActivity extends Activity {
 	}
 	
 	private void initializeGrid() {
+		ButtonAdapter buttonAdapter;
 		if (isTablet()){
 			buttonAdapter = new ButtonAdapter(this, 100, 48);
 			gridview.setColumnWidth(100);
