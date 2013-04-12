@@ -34,8 +34,14 @@ public class HighscoresActivity extends Activity {
 
 		HighscoresHandler handler = new HighscoresHandler(this);
 		for (Highscore highscore : handler.getHighscores()) {
+			String text = highscore.getWord() +" "+ highscore.getGuesses();
+			if (highscore.isEvil()) {
+				text += " EVIL";
+			} else {
+				text += " NORMAL";
+			}
 			TextView textView = new TextView(this);
-			textView.setText(highscore.getWord() +" "+ highscore.getGuesses());
+			textView.setText(text);
 			layout.addView(textView);
 		}
 	}
