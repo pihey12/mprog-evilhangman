@@ -8,7 +8,6 @@ import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.TextView;
 
 public class LostActivity extends Activity {
@@ -60,6 +59,7 @@ public class LostActivity extends Activity {
 	}
 
 	public void restartGame(View view) {
+		setResult(RESULT_OK);
 		finish();
 	}
 
