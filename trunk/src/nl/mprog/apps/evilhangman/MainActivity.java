@@ -171,6 +171,7 @@ public class MainActivity extends Activity {
 		updateGuesses(guesses);
 		setWord(hangman.getCurrentWord());
 		
+		
 		for(int i = 0; i < gridview.getChildCount(); i++) {
 			  Button btn = (Button) gridview.getChildAt(i);
 		      btn.setOnClickListener(new ButtonClickHandler(this, hangman));
