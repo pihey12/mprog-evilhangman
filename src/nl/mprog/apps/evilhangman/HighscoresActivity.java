@@ -6,9 +6,12 @@ import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -38,24 +41,42 @@ public class HighscoresActivity extends Activity {
 		layout.removeAllViewsInLayout();
 
 		HighscoresHandler handler = new HighscoresHandler(this);
+		int i = 1; // rank in highscores
+	
 		for (Highscore highscore : handler.getHighscores(evil)) {
-			String text = highscore.getWord() +" "+ highscore.getGuesses();
-			if (highscore.isEvil()) {
-				text += " EVIL";
-			} else {
-				text += " NORMAL";
-			}
+			String text = String.valueOf(i) +" "+ highscore.getWord() +" "+ highscore.getGuesses();
 			TextView textView = new TextView(this);
 			textView.setText(text);
+			textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
+			textView.setGravity(Gravity.CENTER);
 			layout.addView(textView);
+			i++;
 		}
 	}
 	
 	public void normal(View view){
+		Button buttonnormal = (Button) findViewById(R.id.normalhighscores);
+		buttonnormal.setEnabled(false);
+		
+		Button buttonevil = (Button) findViewById(R.id.evilhighscores);
+		buttonevil.setEnabled(true);
+		
+		TextView title = (TextView) findViewById(R.id.title);
+		title.setText("Normal Highscores");
+		
 		makeHighscoreList(0);
 	}
 	
 	public void evil(View view){
+		Button buttonnormal = (Button) findViewById(R.id.normalhighscores);
+		buttonnormal.setEnabled(true);
+		
+		Button buttonevil = (Button) findViewById(R.id.evilhighscores);
+		buttonevil.setEnabled(false);
+		
+		TextView title = (TextView) findViewById(R.id.title);
+		title.setText("Evil Highscores");
+		
 		makeHighscoreList(1);
 	}
 
