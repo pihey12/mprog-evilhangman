@@ -30,10 +30,15 @@ public class HighscoresActivity extends Activity {
 		// Show the Up button in the action bar.
 		setupActionBar();
 		
+		makeHighscoreList(0);
+	}
+	
+	public void makeHighscoreList(int evil){
 		LinearLayout layout = (LinearLayout) findViewById(R.id.highscores);
+		layout.removeAllViewsInLayout();
 
 		HighscoresHandler handler = new HighscoresHandler(this);
-		for (Highscore highscore : handler.getHighscores()) {
+		for (Highscore highscore : handler.getHighscores(evil)) {
 			String text = highscore.getWord() +" "+ highscore.getGuesses();
 			if (highscore.isEvil()) {
 				text += " EVIL";
@@ -44,6 +49,14 @@ public class HighscoresActivity extends Activity {
 			textView.setText(text);
 			layout.addView(textView);
 		}
+	}
+	
+	public void normal(View view){
+		makeHighscoreList(0);
+	}
+	
+	public void evil(View view){
+		makeHighscoreList(1);
 	}
 
 	/**
