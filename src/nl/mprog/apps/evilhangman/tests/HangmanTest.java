@@ -7,6 +7,7 @@ import junit.framework.TestCase;
 import nl.mprog.apps.evilhangman.hangman.EvilHangman;
 import nl.mprog.apps.evilhangman.hangman.Hangman;
 import nl.mprog.apps.evilhangman.hangman.NormalHangman;
+import nl.mprog.apps.evilhangman.persistence.WordsAssetsHelper;
 
 public class HangmanTest extends TestCase {
 	
@@ -61,9 +62,4 @@ public class HangmanTest extends TestCase {
 		assertTrue(hangman.gameWon());
 		assertEquals(hangman.getGuessesUsed(), 1);
 	}
-	
-	public void testEvilHangmanWithWordsFromDatabase() {
-		
-	}
-
 }
